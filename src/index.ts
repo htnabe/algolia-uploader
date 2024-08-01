@@ -8,6 +8,7 @@ async function main() {
     console.log(`uploaded ${uploadedCount} objects successfully.`);
   } catch (error) {
     console.error('error occured: ', error);
+    process.exit(1);
   }
 }
 
