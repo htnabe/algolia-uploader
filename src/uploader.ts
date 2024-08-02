@@ -1,47 +1,39 @@
 import { index } from './algoliaClient';
+import IndexedItem from './types/IndexedItem';
+import Operations from './types/Operations';
+import isEqual from './utils/isEqual';
 
-export async function uploadObjects(newObjects: any[]): Promise<number> {
-  try {
-    const existingObjects = await getAllObjects();
-    const operations = determineOperations(existingObjects, newObjects);
+export async function uploadObjects(newObjects: IndexedItem[]) {
+  const existingObjects: IndexedItem[] = await getAllObjects();
+  const operations: Operations = determineOperations(existingObjects, newObjects);
 
-    if (operations.update.length === 0 && operations.add.length === 0) {
-      console.log('No updates needed. All objects are up to date.');
-      return 0;
-    }
+  if (operations.update.length === 0 && operations.add.length === 0) {
+    console.log('No updates needed. All objects are up to date.');
+    return 0;
+  }
 
-    let totalOperations: number = 0;
+  // Update Operation
+  if (operations.update.length > 0) {
+    const { objectIDs: addedIDs } = await index.saveObjects(operations.add);
+    console.log(`Updated ${addedIDs.length} new objects`);
+  }
 
-    // newObjectsとOperationsのデータを渡して、必要なデータのupdate, add, delete処理を行う
-    if (operations.update.length > 0) {
-      const { objectIDs: addedIDs } = await index.saveObjects(operations.add);
-      console.log(`Added ${addedIDs.length} new objects`);
-      totalOperations += addedIDs.length;
-    }
+  // Add operation
+  if (operations.add.length > 0) {
+    const { objectIDs: addedIDs } = await index.saveObjects(operations.add);
+    console.log(`Added ${addedIDs.length} new objects`);
+  }
 
-    // Add operation
-    if (operations.add.length > 0) {
-      const { objectIDs: addedIDs } = await index.saveObjects(operations.add);
-      console.log(`Added ${addedIDs.length} new objects`);
-      totalOperations += addedIDs.length;
-    }
-
-    // Delete operation
-    if (operations.delete.length > 0) {
-      const { objectIDs: deletedIDs } = await index.deleteObjects(operations.delete);
-      console.log(`Deleted ${deletedIDs.length} objects`);
-      totalOperations += deletedIDs.length;
-    }
-
-    return totalOperations;
-  } catch (error) {
-    console.error("some error occured while uploading: ", error);
-    throw error;
+  // Delete operation
+  if (operations.delete.length > 0) {
+    const targetIds: string[] = operations.delete.map(value => value.objectID);
+    const { objectIDs: deletedIDs } = await index.deleteObjects(targetIds);
+    console.log(`Deleted ${deletedIDs.length} objects`);
   }
 }
 
-async function getAllObjects(): Promise<any[]> {
-  const objects: any[] = [];
+async function getAllObjects(): Promise<IndexedItem[]> {
+  const objects: IndexedItem[] = [];
   await index.browseObjects({
     batch: batch => {
       objects.push(...batch);
@@ -50,24 +42,31 @@ async function getAllObjects(): Promise<any[]> {
   return objects;
 }
 
-function determineOperations(existingObjects: any[], newObjects: any[]): Operations {
+//
+function determineOperations(existingObjects: IndexedItem[], newObjects: IndexedItem[]): Operations {
+  // objectID and contents set
   const existingObjectMap = new Map(existingObjects.map(obj => [obj.objectID, obj]));
+  const newObjectMap = new Map(newObjects.map(obj => [obj.objectID, obj]));
   const operations: Operations = {
     update: [],
     add: [],
     delete: []
   };
 
+  // Check for updates and adds
   for (const newObj of newObjects) {
     const existingObj = existingObjectMap.get(newObj.objectID);
-    if (existingObj) {
-      // オブジェクトが既に存在する場合、更新が必要かチェック
-      if (!isEqual(existingObj, newObj)) {
-        operations.update.push(newObj);
-      }
-    } else {
-      // 新しいオブジェクトの場合、追加リストに入れる
+    if (existingObj == undefined) {
       operations.add.push(newObj);
+    } else if (!isEqual(existingObj, newObj)) {  // Check if the objects are not equal
+      operations.update.push(newObj);
+    }
+  }
+
+  // Check for deletions
+  for (const existingObj of existingObjects) {
+    if (!newObjectMap.has(existingObj.objectID)) {
+      operations.delete.push(existingObj);
     }
   }
 
