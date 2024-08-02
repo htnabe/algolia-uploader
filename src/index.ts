@@ -9,7 +9,7 @@ async function main() {
     // added/revised/removed items count
     await uploadObjects(objects[0]);
   } catch (error) {
-    console.error('error occured: ', error);
+    console.error('Some errors occured: ', error);
     process.exit(1);
   }
 }

@@ -14,5 +14,5 @@ export const config = {
   ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID as string,
   ALGOLIA_ADMIN_API_KEY: process.env.ALGOLIA_ADMIN_API_KEY as string,
   ALGOLIA_INDEX_NAME: process.env.ALGOLIA_INDEX_NAME as string,
-  DATA_DIR: process.env.DATA_DIR || 'data'
+  DATA_DIR: process.env.DATA_DIR
 };
