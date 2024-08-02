@@ -27,7 +27,7 @@
   "files": [
     "lib/**/*"
   ],
-  "keywords": [],
-  "author": "",
+  "keywords": ["algolia"],
+  "author": "htnabe <https://github.com/htnabe>",
   "license": "ISC"
 }
