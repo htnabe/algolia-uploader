@@ -22,7 +22,7 @@
     "test": "jest",
     "build": "tsc",
     "algolia-upload": "node ./lib/index.js",
-    "prepare": "husky install"
+    "prepare": "node .husky/install.mjs"
   },
   "files": [
     "lib/**/*"
