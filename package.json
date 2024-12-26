@@ -7,9 +7,7 @@
   "version": "1.0.0",
   "description": "command-line utils to upload Algolia source",
   "main": "lib/index.js",
-  "bin": {
-    "algolia-uploader": "lib/index.js"
-  },
+  "bin": "lib/index.js",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^22.0.0",
@@ -27,7 +25,10 @@
   "files": [
     "lib/**/*"
   ],
-  "keywords": ["algolia"],
+  "keywords": [
+    "algolia"
+  ],
   "author": "htnabe <https://github.com/htnabe>",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "yarn@4.5.3"
 }
