@@ -1,21 +1,22 @@
 {
+  "name": "algolia-uploader",
+  "version": "0.0.0",
+  "description": "command-line util to upload Algolia source",
+  "type": "module",
   "dependencies": {
     "algoliasearch": "^5.20.3",
     "citty": "^0.1.6",
     "dotenv": "^16.4.7"
   },
-  "name": "algolia-uploader",
-  "version": "1.0.0",
-  "description": "command-line utils to upload Algolia source",
-  "main": "lib/index.js",
-  "bin": "lib/index.js",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.5",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
+    "jiti": "^2.4.2",
     "ts-jest": "^29.2.6",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "unbuild": "^3.3.1"
   },
   "scripts": {
     "test": "jest",
@@ -23,9 +24,6 @@
     "algolia-upload": "node ./lib/index.js",
     "prepare": "node .husky/install.mjs"
   },
-  "files": [
-    "lib/**/*"
-  ],
   "keywords": [
     "algolia"
   ],
