@@ -9,20 +9,32 @@
     "dotenv": "^16.4.7"
   },
   "devDependencies": {
+    "@types/node": "^22.13.5",
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
     "typescript": "^5.7.3",
     "unbuild": "^3.5.0"
   },
   "scripts": {
     "build": "unbuild",
     "prepack": "unbuild",
-    "prepare": "node .husky/install.mjs"
+    "prepare": "node .husky/install.mjs",
+    "lint": "yarn prettier . --write"
   },
   "keywords": [
     "algolia"
   ],
   "author": "htnabe <https://github.com/htnabe>",
   "license": "ISC",
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.6.0",
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
 }
