@@ -1,17 +1,26 @@
-#!/usr/bin/env node
-import { readJsonFiles } from './utils/fileReader';
-import { uploadObjects } from './uploader';
+import { defineCommand, runMain } from "citty";
+import { name, version, description } from "../package.json";
+import { readJsonFiles } from "./utils/fileReader";
+import { uploadObjects } from "./uploader";
 
-async function main() {
-  try {
-    // objects obtained from target json file
-    const objects: any[] = readJsonFiles();
-    // added/revised/removed items count
-    await uploadObjects(objects[0]);
-  } catch (error) {
-    console.error('Some errors occured: ', error);
-    process.exit(1);
-  }
-}
+const main = defineCommand({
+  meta: {
+    name: name,
+    version: version,
+    description: description,
+  },
+  args: {},
+  async run({ args }) {
+    try {
+      // objects obtained from target json file
+      const objects: any[] = readJsonFiles();
+      // added/revised/removed items count
+      await uploadObjects(objects[0]);
+    } catch (error) {
+      console.error("Some errors occured: ", error);
+      process.exit(1);
+    }
+  },
+});
 
-main();
+runMain(main);

@@ -1,34 +1,40 @@
 {
-  "dependencies": {
-    "algoliasearch": "^4.24.0",
-    "dotenv": "^16.4.5"
-  },
   "name": "algolia-uploader",
-  "version": "1.0.0",
-  "description": "command-line utils to upload Algolia source",
-  "main": "lib/index.js",
-  "bin": "lib/index.js",
+  "version": "0.0.0",
+  "description": "command-line util to upload Algolia source",
+  "type": "module",
+  "dependencies": {
+    "algoliasearch": "^5.20.3",
+    "citty": "^0.1.6",
+    "dotenv": "^16.4.7"
+  },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/node": "^22.0.0",
-    "husky": "^9.1.4",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.3",
-    "typescript": "^5.5.4"
+    "@types/node": "^22.13.5",
+    "husky": "^9.1.7",
+    "jiti": "^2.4.2",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.2",
+    "typescript": "^5.7.3",
+    "unbuild": "^3.5.0"
   },
   "scripts": {
-    "test": "jest",
-    "build": "tsc",
-    "algolia-upload": "node ./lib/index.js",
-    "prepare": "node .husky/install.mjs"
+    "build": "unbuild",
+    "prepack": "unbuild",
+    "prepare": "node .husky/install.mjs",
+    "lint": "yarn prettier . --write"
   },
-  "files": [
-    "lib/**/*"
-  ],
   "keywords": [
     "algolia"
   ],
   "author": "htnabe <https://github.com/htnabe>",
   "license": "ISC",
-  "packageManager": "yarn@4.5.3"
+  "packageManager": "yarn@4.6.0",
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
 }

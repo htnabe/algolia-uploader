@@ -1,5 +1,6 @@
 # algolia-uploader
-Command-line util to upload Algolia source.
+
+This is a command-line util to upload Algolia sources. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
 ## Example
 
@@ -50,9 +51,9 @@ Command-line util to upload Algolia source.
 ```
 
 Cautions:
+
 - `objectID` is necessary
 - For now, only one json file can be loaded, I will support multiple files(maybe)
-
 
 3. Run `npx algolia-uploader` (WIP)
 
@@ -65,3 +66,13 @@ If this library is published, I will try to make it possible to do the following
 > Updated 2 items
 > Deleted 3 items
 ```
+
+## Development
+
+`Devcontainer` is included. If you are using vscode as your editor, the command below is required only the first time it is started.
+
+```
+yarn dlx @yarnpkg/sdks vscode
+```
+
+- Also check here :point_right: : https://yarnpkg.com/getting-started/editor-sdks

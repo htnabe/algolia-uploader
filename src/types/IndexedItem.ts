@@ -1,4 +1,4 @@
 export default interface IndexedItem {
   objectID: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
