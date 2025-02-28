@@ -1,0 +1,9 @@
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+.pnp.*
+yarn.lock
+.yarn/*
+.vscode/*
+.husky/*
