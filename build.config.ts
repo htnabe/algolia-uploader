@@ -10,7 +10,7 @@ export default defineBuildConfig({
   rollup: {
     // output not only mjs also cjs
     emitCJS: true,
-    esbuild: { minify: true }
+    esbuild: { minify: true },
   },
 
   // Change outDir, default is 'dist'
