@@ -1,8 +1,10 @@
 import { algoliasearch } from "algoliasearch";
-import { config } from "./utils/ConfigProvider";
+import { ConfigProvider } from "./utils/ConfigProvider";
+
+const config = ConfigProvider.getInstance();
 
 export const client = algoliasearch(
-  config.ALGOLIA_APP_ID,
-  config.ALGOLIA_ADMIN_API_KEY,
+  config.getConfig("ALGOLIA_APP_ID"),
+  config.getConfig("ALGOLIA_ADMIN_API_KEY"),
 );
-export const indexName = config.ALGOLIA_INDEX_NAME;
+export const indexName = config.getConfig("ALGOLIA_INDEX_NAME");
