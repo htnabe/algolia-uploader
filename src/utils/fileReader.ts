@@ -1,12 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { config } from "./config";
+import { ConfigProvider } from "./ConfigProvider";
 
 export function readJsonFiles(): any[] {
-  if (config.DATA_DIR === undefined) {
-    throw new Error("Provide valid directory name where json file exists");
-  }
-  const dataDir = path.join(__dirname, "..", config.DATA_DIR);
+  const config = ConfigProvider.getInstance();
+  let dataDir = config.getConfig("DATA_DIR");
+
+  dataDir = path.join(__dirname, "..", dataDir);
   const files = fs.readdirSync(dataDir);
 
   // CAUTION: currently only one json file is read in the later process

@@ -12,10 +12,10 @@ const main = defineCommand({
   args: {},
   async run({ args }) {
     try {
-      // objects obtained from target json file
-      const objects: any[] = readJsonFiles();
+      // objects obtained from the target Algolia source json file
+      const algoliaSourceObjects: any[] = readJsonFiles();
       // added/revised/removed items count
-      await uploadObjects(objects[0]);
+      await uploadObjects(algoliaSourceObjects[0]);
     } catch (error) {
       console.error("Some errors occured: ", error);
       process.exit(1);

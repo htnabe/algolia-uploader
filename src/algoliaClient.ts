@@ -1,5 +1,5 @@
 import { algoliasearch } from "algoliasearch";
-import { config } from "./utils/config";
+import { config } from "./utils/ConfigProvider";
 
 export const client = algoliasearch(
   config.ALGOLIA_APP_ID,
