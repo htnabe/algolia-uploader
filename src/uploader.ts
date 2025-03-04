@@ -1,6 +1,6 @@
 import { BatchResponse, BrowseResponse } from "algoliasearch";
 import { client, indexName } from "./algoliaClient";
-import IndexedItem from "./types/IndexedItem";
+import IndexedItem, { isIndexedItem } from "./types/IndexedItem";
 import Operations from "./types/Operations";
 import isEqual from "./utils/isEqual";
 
@@ -64,16 +64,6 @@ async function getAllObjects(): Promise<IndexedItem[]> {
   });
 
   return objects;
-}
-
-// Guard the IndexedItem type
-function isIndexedItem(item: unknown): item is IndexedItem {
-  return (
-    typeof item === "object" &&
-    item !== null &&
-    "objectID" in item &&
-    typeof (item as IndexedItem).objectID === "string"
-  );
 }
 
 function determineOperations(

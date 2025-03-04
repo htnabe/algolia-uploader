@@ -5,23 +5,26 @@
   "type": "module",
   "dependencies": {
     "algoliasearch": "^5.20.3",
-    "citty": "^0.1.6",
-    "dotenv": "^16.4.7"
+    "citty": "^0.1.6"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.38.3",
     "@types/node": "^22.13.5",
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
     "typescript": "^5.7.3",
-    "unbuild": "^3.5.0"
+    "unbuild": "^3.5.0",
+    "vitest": "^3.0.7"
   },
   "scripts": {
     "build": "unbuild",
     "prepack": "unbuild",
     "prepare": "node .husky/install.mjs",
-    "lint": "yarn prettier . --write"
+    "lint": "yarn prettier . --write",
+    "test": "vitest run",
+    "dev": "dotenvx run jiti ./src/index.ts"
   },
   "keywords": [
     "algolia"
