@@ -1,7 +1,10 @@
 import { defineCommand, runMain } from "citty";
 import { name, version, description } from "../package.json";
-import { readJsonFiles } from "./utils/fileReader";
+import { readAllJsonFiles } from "./utils/readAllJsonFiles";
 import { uploadObjects } from "./uploader";
+import { ConfigProvider } from "./utils/ConfigProvider";
+import path from "path";
+import { isIndexedItem } from "./types/IndexedItem";
 
 const main = defineCommand({
   meta: {
@@ -12,10 +15,19 @@ const main = defineCommand({
   args: {},
   async run({ args }) {
     try {
-      // objects obtained from the target Algolia source json file
-      const algoliaSourceObjects: any[] = readJsonFiles();
-      // added/revised/removed items count
-      await uploadObjects(algoliaSourceObjects[0]);
+      const config = ConfigProvider.getInstance();
+      let dataDir = config.getConfig("DATA_DIR");
+      dataDir = path.join(__dirname, "..", dataDir);
+      const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
+
+      // check the type
+      algoliaSourceObjects.forEach((obj: unknown) => {
+        if (!isIndexedItem(obj)) {
+          throw new Error(`The provided file's content is not compatible.`);
+        }
+      });
+
+      await uploadObjects(algoliaSourceObjects);
     } catch (error) {
       console.error("Some errors occured: ", error);
       process.exit(1);

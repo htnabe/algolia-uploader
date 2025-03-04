@@ -70,6 +70,7 @@ If this library is published, I will try to make it possible to do the following
 ## Development
 
 ### Devcontainer
+
 `Devcontainer` is included. If you are using vscode as your editor, the command below is required only the first time it is started.
 
 ```
@@ -79,6 +80,7 @@ yarn dlx @yarnpkg/sdks vscode
 - Also check here :point_right: : https://yarnpkg.com/getting-started/editor-sdks
 
 ### How to dev in your env
+
 You can debug in the development environment with the `yarn dev` command.
 
 Running the `yarn dev` command will read the `.env` file in the development environment and access the DB provided in Algolia.
