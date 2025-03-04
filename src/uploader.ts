@@ -1,11 +1,15 @@
-import { BatchResponse, BrowseResponse } from "algoliasearch";
-import { client, indexName } from "./algoliaClient";
+import { BatchResponse, BrowseResponse, SearchClient } from "algoliasearch";
 import IndexedItem, { isIndexedItem } from "./types/IndexedItem";
 import Operations from "./types/Operations";
 import isEqual from "./utils/isEqual";
+import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
 
 export async function uploadObjects(newObjects: IndexedItem[]) {
-  const existingObjects: IndexedItem[] = await getAllObjects();
+  const provider = AlgoliaClientProvider.getInstance();
+  const client = provider.getClient();
+  const indexName = provider.getIndexName();
+
+  const existingObjects: IndexedItem[] = await getAllObjects(client, indexName);
   const operations: Operations = determineOperations(
     existingObjects,
     newObjects,
@@ -48,7 +52,10 @@ export async function uploadObjects(newObjects: IndexedItem[]) {
   }
 }
 
-async function getAllObjects(): Promise<IndexedItem[]> {
+async function getAllObjects(
+  client: SearchClient,
+  indexName: string,
+): Promise<IndexedItem[]> {
   const objects: IndexedItem[] = [];
   await client.browseObjects<IndexedItem>({
     indexName: indexName,

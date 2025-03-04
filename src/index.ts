@@ -19,7 +19,8 @@ const main = defineCommand({
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
       dataDir = path.join(__dirname, "..", dataDir);
-      const dirExists = fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
+      const dirExists =
+        fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
 
       // Check the directory
       if (!dirExists) {
@@ -30,9 +31,13 @@ const main = defineCommand({
       const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
 
       // check the type
-      const areObjsIndexedItems = algoliaSourceObjects.every(obj => isIndexedItem(obj));
+      const areObjsIndexedItems = algoliaSourceObjects.every((obj) =>
+        isIndexedItem(obj),
+      );
       if (!areObjsIndexedItems) {
-        console.error(`The content of the provided json file is incompatible. Check the file: ${dataDir}`);
+        console.error(
+          `The content of the provided json file is incompatible. Check the file: ${dataDir}`,
+        );
         return;
       }
 
