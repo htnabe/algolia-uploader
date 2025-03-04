@@ -14,7 +14,10 @@ export class AlgoliaClientProvider {
    * @param {ConfigProvider} configProvider - The config provider instance.
    * @param {(typeof algoliasearch)} algoliaSearchFn - The Algolia search function.
    */
-  constructor(configProvider: ConfigProvider, algoliaSearchFn: typeof algoliasearch) {
+  constructor(
+    configProvider: ConfigProvider,
+    algoliaSearchFn: typeof algoliasearch,
+  ) {
     this.client = algoliaSearchFn(
       configProvider.getConfig("ALGOLIA_APP_ID"),
       configProvider.getConfig("ALGOLIA_ADMIN_API_KEY"),

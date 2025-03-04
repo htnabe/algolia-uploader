@@ -22,21 +22,27 @@ beforeEach(() => {
   } as unknown as ConfigProvider;
 
   mockSearchClient = {} as SearchClient;
-  mockAlgoliaSearch = vi.fn(() => mockSearchClient) as unknown as typeof algoliasearch;
+  mockAlgoliaSearch = vi.fn(
+    () => mockSearchClient,
+  ) as unknown as typeof algoliasearch;
 });
 
 describe("AlgoliaClientProvider", () => {
-
   it("should create an Algolia client with correct credentials", () => {
-    const provider = new AlgoliaClientProvider(mockConfigProvider, mockAlgoliaSearch);
+    const provider = new AlgoliaClientProvider(
+      mockConfigProvider,
+      mockAlgoliaSearch,
+    );
 
     expect(mockAlgoliaSearch).toHaveBeenCalledWith("mockAppId", "mockApiKey");
     expect(provider.getClient()).toBe(mockSearchClient);
   });
 
-
   it("should return the correct index name", () => {
-    const provider = new AlgoliaClientProvider(mockConfigProvider, mockAlgoliaSearch);
+    const provider = new AlgoliaClientProvider(
+      mockConfigProvider,
+      mockAlgoliaSearch,
+    );
 
     expect(provider.getIndexName()).toBe("mockIndex");
   });
