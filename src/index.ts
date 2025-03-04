@@ -5,6 +5,7 @@ import { uploadObjects } from "./uploader";
 import { ConfigProvider } from "./utils/ConfigProvider";
 import path from "path";
 import { isIndexedItem } from "./types/IndexedItem";
+import fs from "fs";
 
 const main = defineCommand({
   meta: {
@@ -18,14 +19,22 @@ const main = defineCommand({
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
       dataDir = path.join(__dirname, "..", dataDir);
+      const dirExists = fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
+
+      // Check the directory
+      if (!dirExists) {
+        console.error(`Error: provided directory does not exist - ${dataDir}`);
+        return;
+      }
+
       const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
 
       // check the type
-      algoliaSourceObjects.forEach((obj: unknown) => {
-        if (!isIndexedItem(obj)) {
-          throw new Error(`The provided file's content is not compatible.`);
-        }
-      });
+      const areObjsIndexedItems = algoliaSourceObjects.every(obj => isIndexedItem(obj));
+      if (!areObjsIndexedItems) {
+        console.error(`The content of the provided json file is incompatible. Check the file: ${dataDir}`);
+        return;
+      }
 
       await uploadObjects(algoliaSourceObjects);
     } catch (error) {
