@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "prod_001",
+    "name": "Wireless Headphones",
+    "brand": "SoundMaster",
+    "price": 129.99,
+    "inStock": true,
+    "rating": 4.5,
+    "description": "Premium sound quality with noise cancellation.",
+    "imageUrl": "https://example.com/images/headphones.jpg"
+  },
+  {
+    "objectID": "prod_002",
+    "name": "Ultra-Slim Laptop",
+    "brand": "TechPro",
+    "price": 999.0,
+    "inStock": true,
+    "rating": 4.8,
+    "description": "Sleek design with powerful performance.",
+    "imageUrl": "https://example.com/images/laptop.jpg"
+  },
+  {
+    "objectID": "prod_003",
+    "name": "Smart Security Camera",
+    "brand": "SafeGuard",
+    "price": 89.99,
+    "inStock": false,
+    "rating": 4.2,
+    "description": "Monitor your home with 1080p video.",
+    "imageUrl": "https://example.com/images/camera.jpg"
+  }
+]

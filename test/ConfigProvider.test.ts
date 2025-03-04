@@ -30,7 +30,7 @@ describe("ConfigProvider", () => {
     // Reset module to throw an error
     const { ConfigProvider } = await import("../src/utils/ConfigProvider");
     expect(() => ConfigProvider.getInstance()).toThrow(
-      "Missing required environment variable: ALGOLIA_ADMIN_API_KEY"
+      "Missing required environment variable: ALGOLIA_ADMIN_API_KEY",
     );
   });
 });

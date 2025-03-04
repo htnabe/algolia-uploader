@@ -5,10 +5,10 @@
   "type": "module",
   "dependencies": {
     "algoliasearch": "^5.20.3",
-    "citty": "^0.1.6",
-    "dotenv": "^16.4.7"
+    "citty": "^0.1.6"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.38.3",
     "@types/node": "^22.13.5",
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
@@ -23,7 +23,8 @@
     "prepack": "unbuild",
     "prepare": "node .husky/install.mjs",
     "lint": "yarn prettier . --write",
-    "test": "vitest run"
+    "test": "vitest run",
+    "dev": "dotenvx run jiti ./src/index.ts"
   },
   "keywords": [
     "algolia"

@@ -27,10 +27,10 @@ const RAW_RUNTIME_STATE =
       [null, {\
         "packageLocation": "./",\
         "packageDependencies": [\
+          ["@dotenvx/dotenvx", "npm:1.38.3"],\
           ["@types/node", "npm:22.13.5"],\
           ["algoliasearch", "npm:5.20.3"],\
           ["citty", "npm:0.1.6"],\
-          ["dotenv", "npm:16.4.7"],\
           ["husky", "npm:9.1.7"],\
           ["jiti", "npm:2.4.2"],\
           ["lint-staged", "npm:15.4.3"],\
@@ -215,6 +215,46 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../home/vscode/.yarn/berry/cache/@babel-helper-validator-identifier-npm-7.25.9-2634b947a4-10c0.zip/node_modules/@babel/helper-validator-identifier/",\
         "packageDependencies": [\
           ["@babel/helper-validator-identifier", "npm:7.25.9"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@dotenvx/dotenvx", [\
+      ["npm:1.38.3", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/@dotenvx-dotenvx-npm-1.38.3-5a06897fd6-10c0.zip/node_modules/@dotenvx/dotenvx/",\
+        "packageDependencies": [\
+          ["@dotenvx/dotenvx", "npm:1.38.3"],\
+          ["commander", "npm:11.1.0"],\
+          ["dotenv", "npm:16.4.7"],\
+          ["eciesjs", "npm:0.4.14"],\
+          ["execa", "npm:5.1.1"],\
+          ["fdir", "virtual:5a06897fd60a03b684173494faa2b4ab9441e5bcb15278c89de2700ba08687f0cb64978d8f39b461a3b29bafd28512750ac4fbc4eff0de6b07c714ebe1c075ea#npm:6.4.3"],\
+          ["ignore", "npm:5.3.2"],\
+          ["object-treeify", "npm:1.1.33"],\
+          ["picomatch", "npm:4.0.2"],\
+          ["which", "npm:4.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@ecies/ciphers", [\
+      ["npm:0.2.2", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/@ecies-ciphers-npm-0.2.2-00c4028b9b-10c0.zip/node_modules/@ecies/ciphers/",\
+        "packageDependencies": [\
+          ["@ecies/ciphers", "npm:0.2.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:dfb20cb990c8ead5d33434d92f587c6b6f2d4632f89f9192341ace1af3bc3bf62965feff6af1c901c2a25b0bb2946be2e1f00334d5b84d423b1ea1a8d40e8b0d#npm:0.2.2", {\
+        "packageLocation": "./.yarn/__virtual__/@ecies-ciphers-virtual-19514e3a7b/3/home/vscode/.yarn/berry/cache/@ecies-ciphers-npm-0.2.2-00c4028b9b-10c0.zip/node_modules/@ecies/ciphers/",\
+        "packageDependencies": [\
+          ["@ecies/ciphers", "virtual:dfb20cb990c8ead5d33434d92f587c6b6f2d4632f89f9192341ace1af3bc3bf62965feff6af1c901c2a25b0bb2946be2e1f00334d5b84d423b1ea1a8d40e8b0d#npm:0.2.2"],\
+          ["@noble/ciphers", "npm:1.2.1"],\
+          ["@types/noble__ciphers", null]\
+        ],\
+        "packagePeers": [\
+          "@noble/ciphers",\
+          "@types/noble__ciphers"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -662,6 +702,34 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@noble/ciphers", [\
+      ["npm:1.2.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/@noble-ciphers-npm-1.2.1-c21960a0ba-10c0.zip/node_modules/@noble/ciphers/",\
+        "packageDependencies": [\
+          ["@noble/ciphers", "npm:1.2.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@noble/curves", [\
+      ["npm:1.8.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/@noble-curves-npm-1.8.1-6957ffa693-10c0.zip/node_modules/@noble/curves/",\
+        "packageDependencies": [\
+          ["@noble/curves", "npm:1.8.1"],\
+          ["@noble/hashes", "npm:1.7.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@noble/hashes", [\
+      ["npm:1.7.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/@noble-hashes-npm-1.7.1-4106ab26c5-10c0.zip/node_modules/@noble/hashes/",\
+        "packageDependencies": [\
+          ["@noble/hashes", "npm:1.7.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@npmcli/agent", [\
       ["npm:3.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/@npmcli-agent-npm-3.0.0-169e79294f-10c0.zip/node_modules/@npmcli/agent/",\
@@ -733,7 +801,7 @@ const RAW_RUNTIME_STATE =
           ["@types/rollup", null],\
           ["commondir", "npm:1.0.1"],\
           ["estree-walker", "npm:2.0.2"],\
-          ["fdir", "virtual:c8807de691826868d9a774dfe20fb184997709c19896ccda6c1d382d679c7c2453bf893d9e0510372bd84566a8523db06ec721126eb95bb24e97992998e8a625#npm:6.4.3"],\
+          ["fdir", "virtual:5a06897fd60a03b684173494faa2b4ab9441e5bcb15278c89de2700ba08687f0cb64978d8f39b461a3b29bafd28512750ac4fbc4eff0de6b07c714ebe1c075ea#npm:6.4.3"],\
           ["is-reference", "npm:1.2.1"],\
           ["magic-string", "npm:0.30.17"],\
           ["picomatch", "npm:4.0.2"],\
@@ -1182,10 +1250,10 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["algolia-uploader", "workspace:."],\
+          ["@dotenvx/dotenvx", "npm:1.38.3"],\
           ["@types/node", "npm:22.13.5"],\
           ["algoliasearch", "npm:5.20.3"],\
           ["citty", "npm:0.1.6"],\
-          ["dotenv", "npm:16.4.7"],\
           ["husky", "npm:9.1.7"],\
           ["jiti", "npm:2.4.2"],\
           ["lint-staged", "npm:15.4.3"],\
@@ -1512,6 +1580,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["commander", [\
+      ["npm:11.1.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/commander-npm-11.1.0-56e979613c-10c0.zip/node_modules/commander/",\
+        "packageDependencies": [\
+          ["commander", "npm:11.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:13.1.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/commander-npm-13.1.0-bdbbfaaf9d-10c0.zip/node_modules/commander/",\
         "packageDependencies": [\
@@ -1859,6 +1934,19 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["eciesjs", [\
+      ["npm:0.4.14", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/eciesjs-npm-0.4.14-dfb20cb990-10c0.zip/node_modules/eciesjs/",\
+        "packageDependencies": [\
+          ["eciesjs", "npm:0.4.14"],\
+          ["@ecies/ciphers", "virtual:dfb20cb990c8ead5d33434d92f587c6b6f2d4632f89f9192341ace1af3bc3bf62965feff6af1c901c2a25b0bb2946be2e1f00334d5b84d423b1ea1a8d40e8b0d#npm:0.2.2"],\
+          ["@noble/ciphers", "npm:1.2.1"],\
+          ["@noble/curves", "npm:1.8.1"],\
+          ["@noble/hashes", "npm:1.7.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["electron-to-chromium", [\
       ["npm:1.5.109", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/electron-to-chromium-npm-1.5.109-ea70b3cfa1-10c0.zip/node_modules/electron-to-chromium/",\
@@ -2048,6 +2136,22 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["execa", [\
+      ["npm:5.1.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/execa-npm-5.1.1-191347acf5-10c0.zip/node_modules/execa/",\
+        "packageDependencies": [\
+          ["execa", "npm:5.1.1"],\
+          ["cross-spawn", "npm:7.0.6"],\
+          ["get-stream", "npm:6.0.1"],\
+          ["human-signals", "npm:2.1.0"],\
+          ["is-stream", "npm:2.0.1"],\
+          ["merge-stream", "npm:2.0.0"],\
+          ["npm-run-path", "npm:4.0.1"],\
+          ["onetime", "npm:5.1.2"],\
+          ["signal-exit", "npm:3.0.7"],\
+          ["strip-final-newline", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:8.0.1", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/execa-npm-8.0.1-0211bd404c-10c0.zip/node_modules/execa/",\
         "packageDependencies": [\
@@ -2091,10 +2195,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:c8807de691826868d9a774dfe20fb184997709c19896ccda6c1d382d679c7c2453bf893d9e0510372bd84566a8523db06ec721126eb95bb24e97992998e8a625#npm:6.4.3", {\
-        "packageLocation": "./.yarn/__virtual__/fdir-virtual-4be5a9f550/3/home/vscode/.yarn/berry/cache/fdir-npm-6.4.3-938f734d57-10c0.zip/node_modules/fdir/",\
+      ["virtual:5a06897fd60a03b684173494faa2b4ab9441e5bcb15278c89de2700ba08687f0cb64978d8f39b461a3b29bafd28512750ac4fbc4eff0de6b07c714ebe1c075ea#npm:6.4.3", {\
+        "packageLocation": "./.yarn/__virtual__/fdir-virtual-89433c1e13/3/home/vscode/.yarn/berry/cache/fdir-npm-6.4.3-938f734d57-10c0.zip/node_modules/fdir/",\
         "packageDependencies": [\
-          ["fdir", "virtual:c8807de691826868d9a774dfe20fb184997709c19896ccda6c1d382d679c7c2453bf893d9e0510372bd84566a8523db06ec721126eb95bb24e97992998e8a625#npm:6.4.3"],\
+          ["fdir", "virtual:5a06897fd60a03b684173494faa2b4ab9441e5bcb15278c89de2700ba08687f0cb64978d8f39b461a3b29bafd28512750ac4fbc4eff0de6b07c714ebe1c075ea#npm:6.4.3"],\
           ["@types/picomatch", null],\
           ["picomatch", "npm:4.0.2"]\
         ],\
@@ -2186,6 +2290,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["get-stream", [\
+      ["npm:6.0.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/get-stream-npm-6.0.1-83e51a4642-10c0.zip/node_modules/get-stream/",\
+        "packageDependencies": [\
+          ["get-stream", "npm:6.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:8.0.1", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/get-stream-npm-8.0.1-c921b4840e-10c0.zip/node_modules/get-stream/",\
         "packageDependencies": [\
@@ -2269,6 +2380,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["human-signals", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/human-signals-npm-2.1.0-f75815481d-10c0.zip/node_modules/human-signals/",\
+        "packageDependencies": [\
+          ["human-signals", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:5.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/human-signals-npm-5.0.0-ed25a9f58c-10c0.zip/node_modules/human-signals/",\
         "packageDependencies": [\
@@ -2292,6 +2410,15 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["iconv-lite", "npm:0.6.3"],\
           ["safer-buffer", "npm:2.1.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["ignore", [\
+      ["npm:5.3.2", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/ignore-npm-5.3.2-346d3ba017-10c0.zip/node_modules/ignore/",\
+        "packageDependencies": [\
+          ["ignore", "npm:5.3.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2379,6 +2506,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["is-stream", [\
+      ["npm:2.0.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/is-stream-npm-2.0.1-c802db55e7-10c0.zip/node_modules/is-stream/",\
+        "packageDependencies": [\
+          ["is-stream", "npm:2.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:3.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/is-stream-npm-3.0.0-a77ac9a62e-10c0.zip/node_modules/is-stream/",\
         "packageDependencies": [\
@@ -2617,6 +2751,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["mimic-fn", [\
+      ["npm:2.1.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/mimic-fn-npm-2.1.0-4fbeb3abb4-10c0.zip/node_modules/mimic-fn/",\
+        "packageDependencies": [\
+          ["mimic-fn", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:4.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/mimic-fn-npm-4.0.0-feaeda79f7-10c0.zip/node_modules/mimic-fn/",\
         "packageDependencies": [\
@@ -2869,6 +3010,14 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["npm-run-path", [\
+      ["npm:4.0.1", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/npm-run-path-npm-4.0.1-7aebd8bab3-10c0.zip/node_modules/npm-run-path/",\
+        "packageDependencies": [\
+          ["npm-run-path", "npm:4.0.1"],\
+          ["path-key", "npm:3.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:5.3.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/npm-run-path-npm-5.3.0-193efca236-10c0.zip/node_modules/npm-run-path/",\
         "packageDependencies": [\
@@ -2888,7 +3037,24 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["object-treeify", [\
+      ["npm:1.1.33", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/object-treeify-npm-1.1.33-2273de9233-10c0.zip/node_modules/object-treeify/",\
+        "packageDependencies": [\
+          ["object-treeify", "npm:1.1.33"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["onetime", [\
+      ["npm:5.1.2", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/onetime-npm-5.1.2-3ed148fa42-10c0.zip/node_modules/onetime/",\
+        "packageDependencies": [\
+          ["onetime", "npm:5.1.2"],\
+          ["mimic-fn", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:6.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/onetime-npm-6.0.0-4f3684e29a-10c0.zip/node_modules/onetime/",\
         "packageDependencies": [\
@@ -3942,6 +4108,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["signal-exit", [\
+      ["npm:3.0.7", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/signal-exit-npm-3.0.7-bd270458a3-10c0.zip/node_modules/signal-exit/",\
+        "packageDependencies": [\
+          ["signal-exit", "npm:3.0.7"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:4.1.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/signal-exit-npm-4.1.0-61fb957687-10c0.zip/node_modules/signal-exit/",\
         "packageDependencies": [\
@@ -4108,6 +4281,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["strip-final-newline", [\
+      ["npm:2.0.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/strip-final-newline-npm-2.0.0-340c4f7c66-10c0.zip/node_modules/strip-final-newline/",\
+        "packageDependencies": [\
+          ["strip-final-newline", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:3.0.0", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/strip-final-newline-npm-3.0.0-7972cbec8b-10c0.zip/node_modules/strip-final-newline/",\
         "packageDependencies": [\
@@ -4203,7 +4383,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../home/vscode/.yarn/berry/cache/tinyglobby-npm-0.2.12-c8807de691-10c0.zip/node_modules/tinyglobby/",\
         "packageDependencies": [\
           ["tinyglobby", "npm:0.2.12"],\
-          ["fdir", "virtual:c8807de691826868d9a774dfe20fb184997709c19896ccda6c1d382d679c7c2453bf893d9e0510372bd84566a8523db06ec721126eb95bb24e97992998e8a625#npm:6.4.3"],\
+          ["fdir", "virtual:5a06897fd60a03b684173494faa2b4ab9441e5bcb15278c89de2700ba08687f0cb64978d8f39b461a3b29bafd28512750ac4fbc4eff0de6b07c714ebe1c075ea#npm:6.4.3"],\
           ["picomatch", "npm:4.0.2"]\
         ],\
         "linkType": "HARD"\
@@ -4587,6 +4767,14 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["which", "npm:2.0.2"],\
           ["isexe", "npm:2.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:4.0.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/which-npm-4.0.0-dd31cd4928-10c0.zip/node_modules/which/",\
+        "packageDependencies": [\
+          ["which", "npm:4.0.0"],\
+          ["isexe", "npm:3.1.1"]\
         ],\
         "linkType": "HARD"\
       }],\
