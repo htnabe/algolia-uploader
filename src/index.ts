@@ -1,11 +1,12 @@
 import { defineCommand, runMain } from "citty";
 import { name, version, description } from "../package.json";
 import { readAllJsonFiles } from "./utils/readAllJsonFiles";
-import { uploadObjects } from "./uploader";
 import { ConfigProvider } from "./utils/ConfigProvider";
 import path from "path";
 import { isIndexedItem } from "./types/IndexedItem";
 import fs from "fs";
+import { Uploader } from "./utils/Uploader";
+import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
 
 const main = defineCommand({
   meta: {
@@ -19,24 +20,31 @@ const main = defineCommand({
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
       dataDir = path.join(__dirname, "..", dataDir);
-      const dirExists = fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
+      const dirExists =
+        fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
 
       // Check the directory
       if (!dirExists) {
         console.error(`Error: provided directory does not exist - ${dataDir}`);
-        return;
+        process.exit(1);
       }
 
       const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
 
       // check the type
-      const areObjsIndexedItems = algoliaSourceObjects.every(obj => isIndexedItem(obj));
+      const areObjsIndexedItems = algoliaSourceObjects.every((obj) =>
+        isIndexedItem(obj),
+      );
       if (!areObjsIndexedItems) {
-        console.error(`The content of the provided json file is incompatible. Check the file: ${dataDir}`);
-        return;
+        console.error(
+          `The content of the provided json file is incompatible. Check the file: ${dataDir}`,
+        );
+        process.exit(1);
       }
 
-      await uploadObjects(algoliaSourceObjects);
+      const provider = AlgoliaClientProvider.getInstance();
+      const uploader = new Uploader(provider);
+      await uploader.uploadObjects(algoliaSourceObjects);
     } catch (error) {
       console.error("Some errors occured: ", error);
       process.exit(1);
