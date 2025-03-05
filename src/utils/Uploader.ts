@@ -29,9 +29,10 @@ export class Uploader {
    * @returns {Promise<number>} The number of updated or added objects.
    */
   public async uploadObjects(newObjects: IndexedItem[]) {
-
     if (newObjects.length === 0) {
-      console.error("No items are included in the target JSON file. More than 1 item is necessary.");
+      console.error(
+        "No items are included in the target JSON file. More than 1 item is necessary.",
+      );
       return;
     }
 

@@ -6,12 +6,18 @@ import { Uploader } from "src/utils/Uploader";
 
 // Mocked class of algolia search client
 class MockAlgoliaClient {
-  browseObjects = vi.fn(async ({ aggregator }: { aggregator: (res: Partial<BrowseResponse>) => void }) => {
-    const mockResponse: Partial<BrowseResponse> = {
-      hits: [],
-    };
-    aggregator(mockResponse as BrowseResponse);
-  });
+  browseObjects = vi.fn(
+    async ({
+      aggregator,
+    }: {
+      aggregator: (res: Partial<BrowseResponse>) => void;
+    }) => {
+      const mockResponse: Partial<BrowseResponse> = {
+        hits: [],
+      };
+      aggregator(mockResponse as BrowseResponse);
+    },
+  );
 
   partialUpdateObjects = vi.fn(async () => Promise.resolve({ length: 2 }));
   saveObjects = vi.fn(async () => Promise.resolve({ length: 1 }));
@@ -64,11 +70,13 @@ describe("Uploader", () => {
 
   // Delete
   test("Returns an error when newObjects is empty", async () => {
-    const consoleErrorMock = vi.spyOn(console, "error").mockImplementation(() => { });
+    const consoleErrorMock = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     const newObjects: IndexedItem[] = [];
     await uploader.uploadObjects(newObjects);
     expect(consoleErrorMock).toHaveBeenCalledWith(
-      "No items are included in the target JSON file. More than 1 item is necessary."
+      "No items are included in the target JSON file. More than 1 item is necessary.",
     );
     consoleErrorMock.mockRestore();
   });
@@ -76,9 +84,7 @@ describe("Uploader", () => {
   test("Do nothing when all items are the same", async () => {
     mockClient.browseObjects.mockImplementationOnce(async ({ aggregator }) => {
       aggregator({
-        hits: [
-          { objectID: "prod_001", name: "Same Product", price: 100 },
-        ],
+        hits: [{ objectID: "prod_001", name: "Same Product", price: 100 }],
       });
     });
 

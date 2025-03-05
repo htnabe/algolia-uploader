@@ -7,10 +7,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "outDir": "./dist",
-    "baseUrl": ".",
+    "baseUrl": "."
   },
-  "include": [
-    "src/**/*",
-    "test"
-  ]
+  "include": ["src/**/*", "test"]
 }
