@@ -1,8 +1,19 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "command-line util to upload Algolia source",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "algoliasearch": "^5.20.3",
     "citty": "^0.1.6",
