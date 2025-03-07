@@ -2,6 +2,18 @@
 
 This is a command-line util to upload Algolia sources. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
+## Install
+
+```
+npm install -D algolia-uploader
+```
+
+or
+
+```
+yarn add -D algolia-uploader
+```
+
 ## Example
 
 1. Make `.env` file and set params
@@ -13,7 +25,22 @@ This is a command-line util to upload Algolia sources. This idea comes from [ato
   DATA_DIR=path/to/dir
 ```
 
+|                       | Description                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| ALGOLIA_APP_ID        | ID of the app indexed in Algolia                                                      |
+| ALGOLIA_ADMIN_API_KEY | API key that can update, delete and make indexes                                      |
+| ALGOLIA_INDEX_NAME    | Name of index set inn Algolia                                                         |
+| DATA_DIR              | Relative path to the directory where the file you want to upload to Algolia is stored |
+
+> [!IMPORTANT]
+> Do not include the file name in `DATA_DIR`.
+
 2. Make `example.json` to be uploaded to Algolia
+
+> [!CAUTION]
+>
+> - Currently only json file is supported.
+> - `objectID` key is necessary
 
 ```
 [
@@ -50,21 +77,32 @@ This is a command-line util to upload Algolia sources. This idea comes from [ato
 ]
 ```
 
-Cautions:
+3. Execute command
 
-- `objectID` is necessary
-- For now, only one json file can be loaded, I will support multiple files(maybe)
-
-3. Run `npx algolia-uploader` (WIP)
-
-If this library is published, I will try to make it possible to do the following
+For example,
 
 ```
-> npx algolia-uploader
+npx algolia-uploader
+```
 
+```
+npm run algolia-uploader
+```
+
+```
+yarn algolia-uploader
+```
+
+Then, the items will be uploaded.
+
+```
 > Added 3 items
 > Updated 2 items
 > Deleted 3 items
+
+or
+
+> No updates needed. All objects are up to date.
 ```
 
 ## Development
