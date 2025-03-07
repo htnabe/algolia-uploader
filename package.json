@@ -37,7 +37,7 @@
   "scripts": {
     "build": "unbuild",
     "prepack": "unbuild",
-    "prepare": "node .husky/install.mjs",
+    "prepare": "node .husky/install.mjs && yarn build",
     "lint": "yarn prettier . --write",
     "test": "vitest run",
     "dev": "dotenvx run jiti ./src/index.ts"
