@@ -8,14 +8,14 @@ export default defineBuildConfig({
   ],
 
   rollup: {
-    // output not only mjs also cjs
+    // output not only mjs but also cjs
     emitCJS: true,
     esbuild: { minify: true },
   },
 
-  // Change outDir, default is 'dist'
-  outDir: "build",
-
   // Generates .d.ts declaration file
   declaration: true,
+
+  // false if you don't want to make an error even when waring
+  failOnWarn: false,
 });
