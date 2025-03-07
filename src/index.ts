@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { defineCommand, runMain } from "citty";
 import { name, version, description } from "../package.json";
 import { readAllJsonFiles } from "./utils/readAllJsonFiles";
