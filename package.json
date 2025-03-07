@@ -11,9 +11,7 @@
   },
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
-  "bin": {
-    "algolia-uploader": "./dist/index.mjs"
-  },
+  "bin": "./dist/index.mjs",
   "files": [
     "dist"
   ],
