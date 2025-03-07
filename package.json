@@ -1,6 +1,6 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "command-line util to upload Algolia source",
   "type": "module",
   "exports": {
@@ -18,11 +18,10 @@
   "dependencies": {
     "algoliasearch": "^5.20.3",
     "citty": "^0.1.6",
-    "lodash": "^4.17.21"
+    "es-toolkit": "^1.32.0"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.38.3",
-    "@types/lodash": "^4",
     "@types/node": "^22.13.5",
     "husky": "^9.1.7",
     "jiti": "^2.4.2",
