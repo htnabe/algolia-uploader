@@ -20,7 +20,7 @@ const main = defineCommand({
     try {
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
-      dataDir = path.join(process.cwd(), "..", dataDir);
+      dataDir = path.join(process.cwd(), dataDir);
       const dirExists =
         fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
 
