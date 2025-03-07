@@ -28,14 +28,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["@dotenvx/dotenvx", "npm:1.38.4"],\
-          ["@types/lodash", "npm:4.17.16"],\
           ["@types/node", "npm:22.13.9"],\
           ["algoliasearch", "npm:5.20.4"],\
           ["citty", "npm:0.1.6"],\
+          ["es-toolkit", "npm:1.32.0"],\
           ["husky", "npm:9.1.7"],\
           ["jiti", "npm:2.4.2"],\
           ["lint-staged", "npm:15.4.3"],\
-          ["lodash", "npm:4.17.21"],\
           ["prettier", "npm:3.5.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"],\
           ["unbuild", "virtual:63597608d7fc87611b607e4935f6f3d63928c76adb4c56dd82b464ccb02d9ff4eac1ab71f2b66fce75fbecd4f41a1393b4d366c7a9bc3dcb44a71f6fd97e9e67#npm:3.5.0"],\
@@ -1104,15 +1103,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["@types/lodash", [\
-      ["npm:4.17.16", {\
-        "packageLocation": "../../home/vscode/.yarn/berry/cache/@types-lodash-npm-4.17.16-edc964ca5b-10c0.zip/node_modules/@types/lodash/",\
-        "packageDependencies": [\
-          ["@types/lodash", "npm:4.17.16"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["@types/node", [\
       ["npm:22.13.9", {\
         "packageLocation": "../../home/vscode/.yarn/berry/cache/@types-node-npm-22.13.9-565bb4cd14-10c0.zip/node_modules/@types/node/",\
@@ -1262,14 +1252,13 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["algolia-uploader", "workspace:."],\
           ["@dotenvx/dotenvx", "npm:1.38.4"],\
-          ["@types/lodash", "npm:4.17.16"],\
           ["@types/node", "npm:22.13.9"],\
           ["algoliasearch", "npm:5.20.4"],\
           ["citty", "npm:0.1.6"],\
+          ["es-toolkit", "npm:1.32.0"],\
           ["husky", "npm:9.1.7"],\
           ["jiti", "npm:2.4.2"],\
           ["lint-staged", "npm:15.4.3"],\
-          ["lodash", "npm:4.17.21"],\
           ["prettier", "npm:3.5.3"],\
           ["typescript", "patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"],\
           ["unbuild", "virtual:63597608d7fc87611b607e4935f6f3d63928c76adb4c56dd82b464ccb02d9ff4eac1ab71f2b66fce75fbecd4f41a1393b4d366c7a9bc3dcb44a71f6fd97e9e67#npm:3.5.0"],\
@@ -2054,6 +2043,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["es-toolkit", [\
+      ["npm:1.32.0", {\
+        "packageLocation": "../../home/vscode/.yarn/berry/cache/es-toolkit-npm-1.32.0-2837726cdf-10c0.zip/node_modules/es-toolkit/",\
+        "packageDependencies": [\
+          ["es-toolkit", "npm:1.32.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["esbuild", [\
       ["npm:0.24.2", {\
         "packageLocation": "./.yarn/unplugged/esbuild-npm-0.24.2-0dcfc14be5/node_modules/esbuild/",\
@@ -2659,15 +2657,6 @@ const RAW_RUNTIME_STATE =
           ["log-update", "npm:6.1.0"],\
           ["rfdc", "npm:1.4.1"],\
           ["wrap-ansi", "npm:9.0.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["lodash", [\
-      ["npm:4.17.21", {\
-        "packageLocation": "../../home/vscode/.yarn/berry/cache/lodash-npm-4.17.21-6382451519-10c0.zip/node_modules/lodash/",\
-        "packageDependencies": [\
-          ["lodash", "npm:4.17.21"]\
         ],\
         "linkType": "HARD"\
       }]\

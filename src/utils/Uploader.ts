@@ -5,7 +5,7 @@ import IndexedItem, {
 } from "../types/IndexedItem";
 import Operations from "../types/Operations";
 import { AlgoliaClientProvider } from "./AlgoliaClientProvider";
-import { isEqual } from "lodash";
+import { isEqual } from "es-toolkit";
 
 /**
  * Class responsible for uploading objects to Algolia.
