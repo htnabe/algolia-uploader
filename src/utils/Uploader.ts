@@ -41,19 +41,23 @@ export class Uploader {
     const sortedNewObjs = normalizeIndexedItemArray(newObjects);
     const operations = this.determineOperations(existingObjects, sortedNewObjs);
 
-    if (operations.update.length === 0 && operations.add.length === 0) {
+    if (
+      operations.update.length === 0 &&
+      operations.add.length === 0 &&
+      operations.delete.length === 0
+    ) {
       console.log("No updates needed. All objects are up to date.");
       return;
     }
 
     // Update Operation
     if (operations.update.length > 0) {
-      const res = await this.client.partialUpdateObjects({
+      const res: BatchResponse[] = await this.client.partialUpdateObjects({
         indexName: this.indexName,
         objects: operations.update,
         createIfNotExists: true,
       });
-      console.log(`Updated ${res.length} objects`);
+      console.log(`Updated ${res[0].objectIDs.length} objects`);
     }
 
     // Add Operation
@@ -62,7 +66,7 @@ export class Uploader {
         indexName: this.indexName,
         objects: operations.add,
       });
-      console.log(`Added ${res.length} objects`);
+      console.log(`Added ${res[0].objectIDs.length} objects`);
     }
 
     // Delete Operation
@@ -72,7 +76,7 @@ export class Uploader {
         indexName: this.indexName,
         objectIDs: targetIds,
       });
-      console.log(`Deleted ${res.length} objects`);
+      console.log(`Deleted ${res[0].objectIDs.length} objects`);
     }
   }
 
