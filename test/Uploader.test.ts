@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach } from "vitest";
-import { SearchClient, BrowseResponse, BatchResponse } from "algoliasearch";
+import { SearchClient, BrowseResponse } from "algoliasearch";
 import IndexedItem from "src/types/IndexedItem";
 import { AlgoliaClientProvider } from "src/utils/AlgoliaClientProvider";
 import { Uploader } from "src/utils/Uploader";
@@ -19,9 +19,15 @@ class MockAlgoliaClient {
     },
   );
 
-  partialUpdateObjects = vi.fn(async () => Promise.resolve({ length: 2 }));
-  saveObjects = vi.fn(async () => Promise.resolve({ length: 1 }));
-  deleteObjects = vi.fn(async () => Promise.resolve([{ length: 1 }]));
+  partialUpdateObjects = vi.fn(async () =>
+    Promise.resolve([{ objectIDs: ["prod_001"] }]),
+  );
+  saveObjects = vi.fn(async () =>
+    Promise.resolve([{ objectIDs: ["prod_001"] }]),
+  );
+  deleteObjects = vi.fn(async () =>
+    Promise.resolve([{ objectIDs: ["prod_001"] }]),
+  );
 }
 
 describe("Uploader", () => {
