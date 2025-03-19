@@ -2,6 +2,8 @@
 
 This is a command-line util to upload Algolia sources. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
+This package is still under development, so there may be disruptive changes in the future.
+
 ## Install
 
 ```
@@ -25,21 +27,32 @@ yarn add -D algolia-uploader
   DATA_DIR=path/to/dir
 ```
 
+or,
+
+```.env
+  ALGOLIA_APP_ID=1234abcd5768
+  ALGOLIA_ADMIN_API_KEY=hogehigehuge
+  ALGOLIA_INDEX_NAME=algoliaIndexName
+  FILE_PATH=path/to/file.json
+```
+
 |                       | Description                                                                           |
 | --------------------- | ------------------------------------------------------------------------------------- |
 | ALGOLIA_APP_ID        | ID of the app indexed in Algolia                                                      |
 | ALGOLIA_ADMIN_API_KEY | API key that can update, delete and make indexes                                      |
 | ALGOLIA_INDEX_NAME    | Name of index set inn Algolia                                                         |
 | DATA_DIR              | Relative path to the directory where the file you want to upload to Algolia is stored |
+| FILE_PATH             | Relative path to the file you want to upload to Algolia                               |
 
 > [!IMPORTANT]
 > Do not include the file name in `DATA_DIR`.
+> `FILE_PATH` has priority over `DATA_DIR`.
 
 2. Make `example.json` to be uploaded to Algolia
 
 > [!CAUTION]
 >
-> - Currently only json file is supported.
+> - Currently only one and json file is supported.
 > - `objectID` key is necessary
 
 ```

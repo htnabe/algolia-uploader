@@ -48,6 +48,10 @@ describe("AlgoliaClientProvider", () => {
   });
 
   it("should return the same instance for getInstance (singleton)", () => {
+    // NOTE: only when calling getInstance function directly, env vars have to be set
+    process.env.DATA_DIR = "data";
+    process.env.FILE_PATH = "data/example.json";
+
     const instance1 = AlgoliaClientProvider.getInstance();
     const instance2 = AlgoliaClientProvider.getInstance();
 

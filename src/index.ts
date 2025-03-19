@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import { defineCommand, runMain } from "citty";
 import { name, version, description } from "../package.json";
-import { readAllJsonFiles } from "./utils/readAllJsonFiles";
 import { ConfigProvider } from "./utils/ConfigProvider";
 import path from "path";
 import { isIndexedItem } from "./types/IndexedItem";
 import fs from "fs";
 import { Uploader } from "./utils/Uploader";
 import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
+import { JsonFileReader } from "./utils/JsonFileReader";
+import { aL } from "vitest/dist/chunks/reporters.d.CqBhtcTq";
 
 const main = defineCommand({
   meta: {
@@ -20,17 +21,25 @@ const main = defineCommand({
     try {
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
-      dataDir = path.join(process.cwd(), dataDir);
-      const dirExists =
-        fs.existsSync(dataDir) && fs.statSync(dataDir).isDirectory();
+      let algoliaSourceObjects: any[];
 
-      // Check the directory
-      if (!dirExists) {
-        console.error(`Error: provided directory does not exist - ${dataDir}`);
-        process.exit(1);
+      // DATA_DIR or FILE_PATH should not be blank
+      if (dataDir !== "") {
+        dataDir = path.join(process.cwd(), dataDir);
+        const content = JsonFileReader.readAllFromDir(dataDir);
+        if (content === undefined) {
+          process.exit(1);
+        }
+        algoliaSourceObjects = content[0];
+      } else {
+        let filePath = config.getConfig("FILE_PATH");
+        filePath = path.join(process.cwd(), filePath);
+        const content = JsonFileReader.readFromFile(filePath);
+        if (content === undefined) {
+          process.exit(1);
+        }
+        algoliaSourceObjects = content;
       }
-
-      const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
 
       // check the type
       const areObjsIndexedItems = algoliaSourceObjects.every((obj) =>
@@ -47,7 +56,7 @@ const main = defineCommand({
       const uploader = new Uploader(provider);
       await uploader.uploadObjects(algoliaSourceObjects);
     } catch (error) {
-      console.error("Some errors occured: ", error);
+      console.error(error);
       process.exit(1);
     }
   },
