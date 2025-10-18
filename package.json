@@ -35,7 +35,7 @@
     "build": "unbuild",
     "prepack": "unbuild",
     "prepare": "node .husky/install.mjs",
-    "lint": "yarn prettier . --write",
+    "lint": "prettier . --write",
     "test": "vitest run",
     "dev": "dotenvx run jiti ./src/index.ts"
   },
@@ -44,7 +44,6 @@
   ],
   "author": "htnabe <https://github.com/htnabe>",
   "license": "ISC",
-  "packageManager": "yarn@4.6.0",
   "lint-staged": {
     "*.{js,ts}": [
       "prettier --write"

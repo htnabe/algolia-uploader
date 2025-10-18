@@ -20,15 +20,15 @@ jobs:
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org/"
-          cache: "yarn"
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn ci
 
       - name: Build package
-        run: yarn build
+        run: npm run build
 
       - name: Publish to npm
-        run: yarn npm publish --access public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
