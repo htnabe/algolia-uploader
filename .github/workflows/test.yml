@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 env:
   HUSKY: 0
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [20]
 
     steps:
       - name: Checkout repository
@@ -31,3 +31,5 @@ jobs:
 
       - name: Run Vitest
         run: npm test
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}
