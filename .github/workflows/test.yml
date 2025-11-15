@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 env:
   HUSKY: 0
@@ -15,14 +15,11 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [20]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,7 +27,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: npm i
 
       - name: Run Vitest
-        run: yarn test
+        run: npm test
+        env:
+          DOTENV_PRIVATE_KEY_CI: ${{ secrets.DOTENV_PRIVATE_KEY_CI }}

@@ -16,26 +16,26 @@
     "dist"
   ],
   "dependencies": {
-    "algoliasearch": "^5.21.0",
+    "algoliasearch": "^5.40.1",
     "citty": "^0.1.6",
-    "es-toolkit": "^1.33.0"
+    "es-toolkit": "^1.40.0"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.39.0",
-    "@types/node": "^22.13.10",
+    "@dotenvx/dotenvx": "^1.51.0",
+    "@types/node": "^24.8.1",
     "husky": "^9.1.7",
-    "jiti": "^2.4.2",
-    "lint-staged": "^15.5.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.2",
-    "unbuild": "^3.5.0",
-    "vitest": "^3.0.9"
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.2.4",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3",
+    "unbuild": "^3.6.1",
+    "vitest": "^3.2.4"
   },
   "scripts": {
     "build": "unbuild",
     "prepack": "unbuild",
     "prepare": "node .husky/install.mjs",
-    "lint": "yarn prettier . --write",
+    "lint": "prettier . --write",
     "test": "vitest run",
     "dev": "dotenvx run jiti ./src/index.ts"
   },
@@ -44,7 +44,6 @@
   ],
   "author": "htnabe <https://github.com/htnabe>",
   "license": "ISC",
-  "packageManager": "yarn@4.6.0",
   "lint-staged": {
     "*.{js,ts}": [
       "prettier --write"
