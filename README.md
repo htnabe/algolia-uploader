@@ -107,22 +107,30 @@ or
 
 ## Development
 
-### Devcontainer
+A `devcontainer` is included.
 
-`Devcontainer` is included. If you are using vscode as your editor, the command below is required only the first time it is started.
+In this repository, `.env` and `.env.ci` are encrypted with [dotenvx](https://dotenvx.com/docs/quickstart).
 
-```
-yarn dlx @yarnpkg/sdks vscode
-```
+- `.env` is for debugging and testing in your local environment
+- `.env.ci` is for testing with GitHub Actions
+  - These files contain only dummy data
 
-- Also check here :point_right: : https://yarnpkg.com/getting-started/editor-sdks
+### How to debug
 
-### How to dev in your env
+Run `npm run dev`.
 
-You can debug in the development environment with the `yarn dev` command.
+You can debug with your real Algolia application using `.debug/example.json` or a JSON file you prepared.
 
-Running the `yarn dev` command will read the `.env` file in the development environment and access the DB provided in Algolia.
+If you want to do so, you also need to edit the `.env` file.
 
-Therefore, please prepare your own Algolia test application using `.debug/example.json` and prepare the `.env` file as well.
+### How to test
 
-Also, this package uses [dotenvx](https://dotenvx.com/docs/quickstart). If you are not familiar with it, I suggest you check the original docs.
+Run `npm test`.
+
+The tests attempt to read the local `.env` file, but the actual variables used in the tests are updated internally.
+
+Therefore, the tests do not access your real Algolia application.
+
+### GitHub Actions
+
+Testing with GitHub Actions uses `.env.ci`.
