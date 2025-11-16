@@ -1,7 +1,11 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "command-line util to upload Algolia source",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/htnabe/algolia-uploader.git"
+  },
   "type": "module",
   "exports": {
     ".": {
