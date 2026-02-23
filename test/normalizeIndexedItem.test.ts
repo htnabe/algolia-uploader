@@ -1,7 +1,5 @@
 import { describe, expect, test } from "vitest";
-import IndexedItem, {
-  normalizeIndexedItemArray,
-} from "../src/types/IndexedItem";
+import IndexedItem, { normalizeIndexedItemArray } from "@/types/IndexedItem";
 
 describe("normalizeIndexedItemArray", () => {
   test("should normalize each IndexedItem objs and sort by objectID", () => {
