@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 permissions:
-  id-token: write # Required for OIDC
+  id-token: write  # Required for OIDC
   contents: read
 
 concurrency:
@@ -52,6 +52,10 @@ jobs:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
+
+      # Ensure npm 11.5.1 or later is installed
+      - name: Update npm
+        run: npm install -g npm@latest
 
       # Ensure npm 11.5.1 or later is installed
       - name: Update npm
