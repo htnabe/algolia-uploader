@@ -30,6 +30,7 @@
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^16.2.4",
+    "npm-check-updates": "^19.6.3",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
@@ -41,7 +42,8 @@
     "prepare": "node .husky/install.mjs",
     "lint": "prettier . --write",
     "test": "vitest run",
-    "dev": "dotenvx run jiti ./src/index.ts"
+    "dev": "dotenvx run jiti ./src/index.ts",
+    "update": "ncu --upgrade && npm install"
   },
   "keywords": [
     "algolia"
