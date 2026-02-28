@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { ConfigProvider } from "../src/utils/ConfigProvider";
+import { ConfigProvider } from "@/utils/ConfigProvider";
 
 describe("ConfigProvider", () => {
   beforeEach(() => {

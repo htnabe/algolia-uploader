@@ -1,6 +1,6 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "command-line util to upload Algolia source",
   "repository": {
     "type": "git",
@@ -21,19 +21,19 @@
   ],
   "dependencies": {
     "algoliasearch": "^5.40.1",
-    "citty": "^0.1.6",
+    "citty": "^0.2.1",
     "es-toolkit": "^1.40.0"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "^1.51.0",
-    "@types/node": "^24.8.1",
+    "@types/node": "^25.3.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "lint-staged": "^16.2.4",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.18"
   },
   "scripts": {
     "build": "unbuild",

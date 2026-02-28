@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { AlgoliaClientProvider } from "../src/utils/AlgoliaClientProvider";
-import { ConfigProvider } from "../src/utils/ConfigProvider";
+import { AlgoliaClientProvider } from "@/utils/AlgoliaClientProvider";
+import { ConfigProvider } from "@/utils/ConfigProvider";
 import { algoliasearch, SearchClient } from "algoliasearch";
 
 // vars for mock

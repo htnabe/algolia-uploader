@@ -1,8 +1,8 @@
 import { describe, expect, test, vi, beforeEach } from "vitest";
 import { SearchClient, BrowseResponse } from "algoliasearch";
-import IndexedItem from "src/types/IndexedItem";
-import { AlgoliaClientProvider } from "src/utils/AlgoliaClientProvider";
-import { Uploader } from "src/utils/Uploader";
+import IndexedItem from "@/types/IndexedItem";
+import { AlgoliaClientProvider } from "@/utils/AlgoliaClientProvider";
+import { Uploader } from "@/utils/Uploader";
 
 // Mocked class of algolia search client
 class MockAlgoliaClient {
