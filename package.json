@@ -1,6 +1,6 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "command-line util to upload Algolia source",
   "repository": {
     "type": "git",
