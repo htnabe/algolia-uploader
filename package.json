@@ -20,16 +20,16 @@
     "dist"
   ],
   "dependencies": {
-    "algoliasearch": "^5.49.1",
+    "algoliasearch": "^5.49.2",
     "citty": "^0.2.1",
-    "es-toolkit": "^1.44.0"
+    "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.52.0",
-    "@types/node": "^25.3.2",
+    "@dotenvx/dotenvx": "^1.54.1",
+    "@types/node": "^25.4.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
-    "lint-staged": "^16.3.0",
+    "lint-staged": "^16.3.3",
     "npm-check-updates": "^19.6.3",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
