@@ -20,21 +20,21 @@
     "dist"
   ],
   "dependencies": {
-    "algoliasearch": "^5.49.2",
-    "citty": "^0.2.1",
+    "algoliasearch": "^5.50.1",
+    "citty": "^0.2.2",
     "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.54.1",
-    "@types/node": "^25.4.0",
+    "@dotenvx/dotenvx": "^1.60.2",
+    "@types/node": "^25.5.2",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
-    "lint-staged": "^16.3.3",
-    "npm-check-updates": "^19.6.3",
+    "lint-staged": "^16.4.0",
+    "npm-check-updates": "^20.0.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "unbuild": "^3.6.1",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.3"
   },
   "scripts": {
     "build": "unbuild",
