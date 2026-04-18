@@ -1,62 +1,73 @@
-# 安全な npm publishing 手順
+# npm 公開運用ガイド（日本語）
 
-このドキュメントは、CI（GitHub Actions）を使って npm パッケージを安全に自動公開する運用手順をまとめたものです。
+このファイルは、日本語での公開手順を管理します。
+英語版は `.github/PUBLISHING.en.md` を参照してください。
 
-目的
+## 目的
 
-- パッケージ公開時のサプライチェーンリスクを低減すること。
+- main への直接 push を行わず、PR ベースでリリースする。
+- `package.json` のバージョンと Git タグを一致させる。
+- GitHub Release をトリガーに npm publish を実行する。
 
-基本方針
+## 現在の標準フロー
 
-- 公開トリガーは `タグ (v*.*.*)` のプッシュのみとする。
-- npm の発行トークンは `Automation token` を使用し、最小権限（publish のみ）・有効期限を設定する。
-- トークンは GitHub の `Environment`（例: `publish`）に登録し、必要に応じて承認者を設定する。
-- CI ワークフローは必ずテスト・lint・依存性チェックを通過させてから publish する。
+1. `dev` からリリースブランチを作成する。
+   - 例: `release/v0.0.13`
+2. リリースブランチでバージョンだけを更新する。
+   - `npm version 0.0.13 --no-git-tag-version`
+3. リリースブランチを `dev` にPRする。
+4. `dev` を `main` にPRする。
+5. `main` 反映後に `main` の対象コミットへタグを作成する。
+   - 例: `v0.0.13`
+6. GitHub Release を公開し、publish workflow を起動する。
 
-手順
+## 実行コマンド例
 
-1. npm 側で Automation token を作成
+### 1) リリースブランチ作成〜version更新
 
-- npm (https://www.npmjs.com/) にログイン
-- Profile → Access Tokens → Create New Token
-- Type: Automation
-- Permissions: Publish（最小）
-- Expiration: 可能なら短期（例: 30〜90日）を設定
-- トークンは一度しか表示されないので、安全に控えてください。
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b release/v0.0.13
+npm version 0.0.13 --no-git-tag-version
+git add package.json package-lock.json
+git commit -m "chore(release): 0.0.13"
+git push -u origin release/v0.0.13
+```
 
-2. GitHub に `Environment` を作成してシークレットを登録
+### 2) PR作成
 
-- リポジトリ → Settings → Environments → New environment → `publish`
-- Environment に `NPM_AUTOMATION_TOKEN` を追加（値は npm で作成したトークン）
-- 必要であれば `Required reviewers` を設定して、ワークフロー実行時に承認を必須にする
+```bash
+gh pr create --base dev --head release/v0.0.13 --title "chore(release): 0.0.13"
+gh pr create --base main --head dev --title "dev"
+```
 
-3. ブランチ・タグ戦略
+### 3) main反映後のタグ・Release
 
-- 公開はタグ `vX.Y.Z` の作成のみで行う
-- タグは main など保護されたブランチからのみ作成する（ブランチ保護ルールで PR レビューを必須にする）
+```bash
+git checkout main
+git pull origin main
+git tag -a v0.0.13 -m "v0.0.13"
+git push origin v0.0.13
+gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
+```
 
-4. ワークフローでの安全チェック（ワークフロー内で実装済み）
+## v0.0.13 実施履歴（参考）
 
-- `npm ci`（lockfile 使用）
-- `npm test`（ユニット/統合テスト）
-- `npm audit`（重大な脆弱性の検出）
-- タグと `package.json` のバージョン一致の検証
+- `release/v0.0.13 -> dev`: PR #139
+- `dev -> main`: PR #140
+- tag/release: `v0.0.13`
+- publish workflow: success
 
-5. 署名・証跡（オプション推奨）
+## 運用注意
 
-- より高い保証のため、ビルド成果物（`npm pack`で作成される tarball）を Sigstore/cosign で署名し、署名と provenance を GitHub Release に添付することを検討してください。
+- `npm version patch` は通常タグも同時作成するため、リリースブランチでは `--no-git-tag-version` を使う。
+- `gh pr merge --delete-branch` は `dev -> main` PR に使わない。
+  - `dev` ブランチ削除を招く可能性があるため。
+- タグは `main` の公開対象コミットに対して作成する。
 
-運用上の注意
+## 失敗時の確認ポイント
 
-- トークンは短期に設定し、定期ローテーションを行ってください。
-- トークンは個人アカウントではなく bot アカウントや organization 管理アカウントで発行することを推奨します。
-- 発行前に CI 成果物の内容を目視/自動チェックで確認できる仕組みを持ってください。
-
-トラブルシュート
-
-- ワークフローが `NPM_AUTOMATION_TOKEN` にアクセスできない場合は、ジョブが `environment: publish` を指定しているか確認してください。
-- publish が失敗した場合は、まずワークフローのログを確認し、`npm publish` のエラーメッセージを確認してください。
-
----
-
-このドキュメントはワークフローの補助としてリポジトリに置きます。運用ルールは組織ポリシーに合わせて調整してください。
+- Release は作成されたか。
+- `publish.yml` の workflow run が `release` イベントで起動しているか。
+- `tag` と `package.json version` の一致チェックで失敗していないか。
