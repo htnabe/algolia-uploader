@@ -3,6 +3,13 @@
 This file tracks the publishing process in English.
 For the Japanese version, see `.github/PUBLISHING.md`.
 
+## Prerequisites
+
+Before using the publish flow, configure the GitHub Actions settings required by `publish.yml`.
+
+- Create a repository Environment named `publish`.
+  - GitHub: Settings → Environments → New environment
+
 ## Goal
 
 - Release without direct pushes to `main`.

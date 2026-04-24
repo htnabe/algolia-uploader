@@ -3,6 +3,13 @@
 このファイルは、日本語での公開手順を管理します。
 英語版は `.github/PUBLISHING.en.md` を参照してください。
 
+## 事前準備
+
+`publish.yml` は GitHub Actions の `publish` Environment で実行される前提です。
+
+- GitHub repository の Settings で Environment 名 `publish` を作成してください。
+  - GitHub: Settings → Environments → New environment
+
 ## 目的
 
 - main への直接 push を行わず、PR ベースでリリースする。
