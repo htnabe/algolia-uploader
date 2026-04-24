@@ -68,6 +68,7 @@ gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
 
 ## Troubleshooting Checklist
 
-- Is the GitHub Release created?
+- Is the GitHub Release published (not left as a draft)?
+- Does the tag name match the `vX.Y.Z` format (e.g., `v0.0.13`)?
 - Did the `publish.yml` workflow start from the `release` event?
 - Did the tag/version consistency check pass?
