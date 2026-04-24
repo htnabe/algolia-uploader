@@ -68,6 +68,7 @@ gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
 
 ## 失敗時の確認ポイント
 
-- Release は作成されたか。
+- GitHub Release は公開済みか（Draft のままではないか）。
+- タグ名が `vX.Y.Z` 形式（例: `v0.0.13`）になっているか。
 - `publish.yml` の workflow run が `release` イベントで起動しているか。
 - `tag` と `package.json version` の一致チェックで失敗していないか。
