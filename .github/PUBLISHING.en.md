@@ -9,6 +9,8 @@ Before using the publish flow, configure the GitHub Actions settings required by
 
 - Create a repository Environment named `publish`.
   - GitHub: Settings → Environments → New environment
+- Configure npm Trusted Publishing (OIDC) for this GitHub repository/workflow.
+- No npm token secret is required.
 
 ## Goal
 

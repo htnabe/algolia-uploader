@@ -9,6 +9,8 @@
 
 - GitHub repository の Settings で Environment 名 `publish` を作成してください。
   - GitHub: Settings → Environments → New environment
+- npm 側で GitHub Actions 向けの Trusted Publishing（OIDC）を設定してください。
+- npm token secret は不要です。
 
 ## 目的
 

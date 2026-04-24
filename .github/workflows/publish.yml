@@ -74,7 +74,6 @@ jobs:
         run: npm pack
 
       - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
         run: |
+          # Uses npm trusted publishing (OIDC), so no npm token secret is required.
           npm publish --provenance --access public
