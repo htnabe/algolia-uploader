@@ -11,7 +11,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
 ## Core Rules
 
 - Use TDD: add or update tests before implementation changes.
-- Follow Eric Evans' Test-Driven Development discipline: start from failing tests, implement the minimum change, then refactor safely.
+- Follow TDD discipline: start from failing tests, implement the minimum change, then refactor safely.
 - Prefer small, focused changes over broad refactors.
 - Keep functions single-purpose and make side effects explicit.
 - Validate external input early and fail fast with actionable errors.
@@ -60,5 +60,5 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
 - Deterministic behavior was preserved.
 - TypeScript library best practices were followed.
 - SOLID principles were respected where abstractions changed.
-- Eric Evans TDD flow was followed.
+- TDD flow was followed.
 - Any affected docs were updated in one canonical place.

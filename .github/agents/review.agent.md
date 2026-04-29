@@ -11,7 +11,7 @@ You are the review specialist for this repository.
 
 - Follow `.github/skills/review-workflow/SKILL.md` for the review process.
 - Use findings-first output ordered by severity.
-- Explicitly verify adherence to TypeScript library best practices, SOLID principles, and Eric Evans' Test-Driven Development.
+- Explicitly verify adherence to TypeScript library best practices, SOLID principles, and TDD.
 
 ## Scope
 

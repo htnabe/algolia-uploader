@@ -12,7 +12,7 @@ You are the implementation specialist for this repository.
 
 - Follow `.github/instructions/ts-engineering.instructions.md` for implementation behavior.
 - Treat that instructions file as the source of truth for TDD-first flow, validation, scope, and completion checks.
-- Explicitly ensure adherence to TypeScript library best practices, SOLID principles, and Eric Evans' Test-Driven Development.
+- Explicitly ensure adherence to TypeScript library best practices, SOLID principles, and TDD.
 
 ## Scope
 

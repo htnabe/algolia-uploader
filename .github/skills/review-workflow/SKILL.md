@@ -24,7 +24,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
 - Risk and regression checks.
 - Adherence to TypeScript library best practices.
 - Adherence to SOLID principles.
-- Adherence to Eric Evans' Test-Driven Development.
+- Adherence to TDD.
 
 ### Review Focus
 
@@ -33,7 +33,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
 - Confirm deterministic behavior and input validation are preserved.
 - Confirm TypeScript library best practices were followed.
 - Confirm SOLID principles were followed where abstractions changed.
-- Confirm Eric Evans TDD flow was followed.
+- Confirm TDD flow was followed.
 - Flag mixed concerns, broad refactors, or duplicated documentation.
 - For docs changes, check terminology consistency, typos, and missing characters.
 
@@ -55,7 +55,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
    - Look for unnecessary abstractions, hidden side effects, or broad refactors.
    - Check compliance with TypeScript library best practices.
    - Check compliance with SOLID principles where design changed.
-   - Check whether implementation followed Eric Evans TDD.
+   - Check whether implementation followed TDD.
    - For docs changes, look for duplicated explanations and violations of single responsibility.
    - For docs changes, check terminology consistency and proofreading quality (typos and missing characters).
 5. Produce review output.
@@ -78,6 +78,6 @@ Use this skill for code review, change review, or pre-push review in this reposi
 - Regression risk was assessed.
 - TypeScript library best practices were checked.
 - SOLID adherence was checked.
-- Eric Evans TDD adherence was checked.
+- TDD adherence was checked.
 - Documentation quality was checked when docs changed (terminology consistency, typos, and missing characters).
 - Remaining gaps or assumptions were stated.
