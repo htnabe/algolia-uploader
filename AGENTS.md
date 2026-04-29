@@ -1,0 +1,50 @@
+# AGENTS Guide
+
+This file helps coding agents be productive in this repository.
+
+## Project Snapshot
+
+- TypeScript CLI tool for syncing JSON data to Algolia.
+- Entry point: [src/index.ts](src/index.ts)
+- Core upload logic: [src/utils/Uploader.ts](src/utils/Uploader.ts)
+- Data shape and validation: [src/types/IndexedItem.ts](src/types/IndexedItem.ts)
+
+## Docs Index
+
+AGENTS.md is an index file; keep details in docs/\* and link from here.
+
+- Repository structure details: [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)
+- Team working rules: [docs/WORKING_RULES.md](docs/WORKING_RULES.md)
+- Release and publishing references: [docs/RELEASE_PUBLISHING.md](docs/RELEASE_PUBLISHING.md)
+
+## Fast Commands
+
+- Install deps: npm install
+- Build: npm run build
+- Test: npm test
+- Format: npm run lint
+- Local run: npm run dev
+
+## Required Environment
+
+The runtime requires all of these variables:
+
+- ALGOLIA_APP_ID
+- ALGOLIA_ADMIN_API_KEY
+- ALGOLIA_INDEX_NAME
+- DATA_DIR
+
+See setup details in [README.md](README.md).
+
+## CI and Hooks
+
+- Pre-commit runs lint-staged: [.husky/pre-commit](.husky/pre-commit)
+- Pre-push runs tests: [.husky/pre-push](.husky/pre-push)
+- CI test workflow: [.github/workflows/test.yml](.github/workflows/test.yml)
+
+## Pitfalls
+
+- DATA_DIR must point to an existing directory.
+- Only JSON inputs are read by the loader utility.
+- Version/tag consistency is validated in the publish workflow.
+- This repo uses npm trusted publishing (OIDC); npm token secrets are not required for publish.
