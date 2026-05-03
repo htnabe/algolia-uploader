@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -35,7 +35,7 @@ jobs:
         run: npm audit --audit-level=high || true
 
   publish:
-    needs: build
+    needs: verify
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     environment: publish
@@ -69,6 +69,15 @@ jobs:
           if [ "${TAG_VERSION}" != "${PKG_VERSION}" ]; then
             echo "Tag (${TAG_NAME}) normalized to (${TAG_VERSION}) does not match package.json version (${PKG_VERSION})"; exit 1
           fi
+
+      - name: Build for publish
+        run: npm run build
+
+      - name: Verify dist artifacts
+        run: |
+          ls -la dist
+          test -f dist/index.mjs
+          test -f dist/index.cjs
 
       - name: Pack (sanity)
         run: npm pack

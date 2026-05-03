@@ -1,7 +1,6 @@
 # npm Publishing Operations Guide (English)
 
-This file tracks the publishing process in English.
-For the Japanese version, see `.github/PUBLISHING.md`.
+This file is the canonical publishing guide for this repository.
 
 ## Prerequisites
 

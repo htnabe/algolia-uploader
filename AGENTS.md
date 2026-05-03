@@ -9,13 +9,9 @@ This file helps coding agents be productive in this repository.
 - Core upload logic: [src/utils/Uploader.ts](src/utils/Uploader.ts)
 - Data shape and validation: [src/types/IndexedItem.ts](src/types/IndexedItem.ts)
 
-## Docs Index
+## Docs
 
-AGENTS.md is an index file; keep details in docs/\* and link from here.
-
-- Repository structure details: [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)
-- Team working rules: [docs/WORKING_RULES.md](docs/WORKING_RULES.md)
-- Release and publishing references: [docs/RELEASE_PUBLISHING.md](docs/RELEASE_PUBLISHING.md)
+Project documentation lives in [docs/README.md](docs/README.md).
 
 ## Fast Commands
 
