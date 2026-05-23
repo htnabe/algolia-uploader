@@ -85,7 +85,24 @@ jobs:
       - name: Pack (sanity)
         run: npm pack
 
+      - name: Resolve npm dist-tag
+        id: npm_tag
+        env:
+          NPM_PRERELEASE_DIST_TAG: ${{ vars.NPM_PRERELEASE_DIST_TAG }}
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          NPM_DIST_TAG=latest
+
+          if [[ "${PKG_VERSION}" == *"-"* ]]; then
+            # default prerelease channel is "next", but can be overridden from repository variables
+            NPM_DIST_TAG=${NPM_PRERELEASE_DIST_TAG:-next}
+          fi
+
+          echo "pkg_version=${PKG_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "npm_dist_tag=${NPM_DIST_TAG}" >> "$GITHUB_OUTPUT"
+          echo "Publishing ${PKG_VERSION} with npm dist-tag '${NPM_DIST_TAG}'"
+
       - name: Publish to npm
         run: |
           # Uses npm trusted publishing (OIDC), so no npm token secret is required.
-          npm publish --provenance --access public
+          npm publish --provenance --access public --tag "${{ steps.npm_tag.outputs.npm_dist_tag }}"
