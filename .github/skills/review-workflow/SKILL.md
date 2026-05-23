@@ -21,6 +21,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
 
 - Scope and requirement alignment.
 - Tests added or updated, plus stated test results.
+- Biome lint and format check results (`npm run lint`).
 - Risk and regression checks.
 - Adherence to TypeScript library best practices.
 - Adherence to SOLID principles.
@@ -50,6 +51,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
    - Confirm tests were added or updated when behavior changed.
    - Confirm the test coverage includes happy path and edge or error behavior.
    - Verify any reported test, build, or lint results are consistent with the change.
+   - Treat Biome failures as blocking until fixed.
 4. Check regression and design risk.
    - Look for broken assumptions, nondeterministic behavior, and weak validation.
    - Look for unnecessary abstractions, hidden side effects, or broad refactors.

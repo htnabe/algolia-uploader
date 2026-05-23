@@ -16,10 +16,14 @@ Project documentation lives in [docs/README.md](docs/README.md).
 ## Fast Commands
 
 - Install deps: npm install
-- Build: npm run build
+- Build (tsdown): npm run build
 - Test: npm test
-- Format: npm run lint
+- Lint/format (Biome): npm run lint
 - Local run: npm run dev
+
+## Toolchain
+
+- Required versions: Node.js `22.22.1`, npm `10.9.2`.
 
 ## Required Environment
 

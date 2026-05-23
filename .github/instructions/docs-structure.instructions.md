@@ -1,7 +1,7 @@
 ---
 description: "Use when editing Markdown documentation. Enforce single-responsibility docs and remove redundant descriptions across files."
 name: "Algolia Uploader Documentation SRP Rules"
-applyTo: ["**/*.md"]
+applyTo: "**/*.md"
 ---
 
 # Documentation Single-Responsibility Rules
@@ -12,3 +12,4 @@ applyTo: ["**/*.md"]
 - Prefer focused pages over monolithic files that mix unrelated concerns.
 - Keep AGENTS.md concise; do not require it to mirror docs indexes.
 - When moving content, update inbound links in the same change.
+- Use Biome for markdown formatting via `npm run lint`; do not use Prettier in this repository.

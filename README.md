@@ -2,6 +2,9 @@
 
 This is a command-line util to upload Algolia sources. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
+> [!NOTE]
+> This package is currently supported as a CLI-only tool. Programmatic import as a library API is out of scope.
+
 ## Install
 
 ```
@@ -109,6 +112,12 @@ or
 
 A `devcontainer` is included.
 
+> [!IMPORTANT]
+> Build tooling uses `tsdown`, which requires Node.js 22.22.1 or higher to run the build.
+> Runtime support is Node.js 22.22.1 or higher.
+
+### Toolchain setup
+
 In this repository, `.env` and `.env.ci` are encrypted with [dotenvx](https://dotenvx.com/docs/quickstart).
 
 - `.env` is for debugging and testing in your local environment
@@ -130,6 +139,12 @@ Run `npm test`.
 The tests attempt to read the local `.env` file, but the actual variables used in the tests are updated internally.
 
 Therefore, the tests do not access your real Algolia application.
+
+### How to lint and format
+
+Run `npm run lint`.
+
+This repository uses Biome for linting and formatting.
 
 ### GitHub Actions
 
