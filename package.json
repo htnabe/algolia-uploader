@@ -52,7 +52,7 @@
       "biome check --write"
     ],
     "*.{json,md}": [
-      "biome check --write"
+      "biome check --write ."
     ]
   }
 }
