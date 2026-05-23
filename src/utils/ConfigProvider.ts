@@ -1,3 +1,5 @@
+import "@dotenvx/dotenvx/config";
+
 // variable to make complementary works
 const REQUIRED_ENV_VARS = {
   ALGOLIA_APP_ID: "ALGOLIA_APP_ID",
