@@ -31,6 +31,10 @@ const main = defineCommand({
       }
 
       const allJsonContents = readAllJsonFiles(dataDir);
+      if (allJsonContents.length === 0) {
+        console.error(`Error: no .json files found in directory - ${dataDir}`);
+        process.exit(1);
+      }
       const algoliaSourceObjects = allJsonContents[0];
 
       if (!Array.isArray(algoliaSourceObjects)) {
