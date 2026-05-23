@@ -7,40 +7,37 @@
     "url": "https://github.com/htnabe/algolia-uploader.git"
   },
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
-    }
-  },
-  "main": "./dist/index.cjs",
-  "types": "./dist/index.d.ts",
   "bin": "./dist/index.mjs",
   "files": [
     "dist"
   ],
+  "engines": {
+    "node": ">=22.22.1"
+  },
   "dependencies": {
-    "algoliasearch": "^5.50.2",
+    "algoliasearch": "^5.52.1",
     "citty": "^0.2.2",
-    "es-toolkit": "^1.45.1"
+    "es-toolkit": "^1.46.1"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.61.1",
-    "@types/node": "^25.6.0",
+    "@biomejs/biome": "^2.4.15",
+    "@dotenvx/dotenvx": "^1.66.0",
+    "@types/node": "^25.9.1",
     "husky": "^9.1.7",
-    "jiti": "^2.6.1",
-    "lint-staged": "^17.0.4",
-    "npm-check-updates": "^22.1.1",
-    "prettier": "^3.8.3",
-    "typescript": "^5.9.3",
-    "unbuild": "^3.6.1",
-    "vitest": "^4.1.4"
+    "jiti": "^2.7.0",
+    "lint-staged": "^17.0.5",
+    "npm-check-updates": "^22.2.0",
+    "tsdown": "^0.22.0",
+    "typescript": "^6.0.3",
+    "unrun": "^0.3.0",
+    "vitest": "^4.1.6"
   },
   "scripts": {
-    "build": "unbuild",
-    "prepack": "unbuild",
+    "build": "tsdown",
+    "prepack": "tsdown",
     "prepare": "node .husky/install.mjs",
-    "lint": "prettier . --write",
+    "lint": "biome check --write .",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "dev": "dotenvx run jiti ./src/index.ts",
     "update": "ncu --upgrade && npm install"
@@ -52,10 +49,10 @@
   "license": "ISC",
   "lint-staged": {
     "*.{js,ts}": [
-      "prettier --write"
+      "biome check --write"
     ],
     "*.{json,md}": [
-      "prettier --write"
+      "biome check --write ."
     ]
   }
 }

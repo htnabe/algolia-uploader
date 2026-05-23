@@ -16,10 +16,14 @@ Project documentation lives in [docs/README.md](docs/README.md).
 ## Fast Commands
 
 - Install deps: npm install
-- Build: npm run build
+- Build (tsdown): npm run build
 - Test: npm test
-- Format: npm run lint
+- Lint/format (Biome): npm run lint
 - Local run: npm run dev
+
+## Toolchain
+
+- Required versions: Node.js `22.22.1`
 
 ## Required Environment
 
@@ -37,6 +41,10 @@ See setup details in [README.md](README.md).
 - Pre-commit runs lint-staged: [.husky/pre-commit](.husky/pre-commit)
 - Pre-push runs tests: [.husky/pre-push](.husky/pre-push)
 - CI test workflow: [.github/workflows/test.yml](.github/workflows/test.yml)
+
+## Pull Requests
+
+- When writing PR descriptions or comments, use [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md) as the canonical structure.
 
 ## Pitfalls
 
