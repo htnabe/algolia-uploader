@@ -18,6 +18,17 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Trigger npm publish from GitHub Release.
 - Keep stable releases on npm `latest` and pre-releases on npm `next`.
 
+## Release Policy (Main-First)
+
+- Do not push release version bumps directly to `dev`.
+- Always use a dedicated release branch from `dev`.
+   - Examples: `release/v0.0.15`, `release/v0.0.15-beta.1`
+- Merge flow for every release:
+   1. `release/*` -> `dev`
+   2. `dev` -> `main`
+   3. Create tag and GitHub Release from the target commit on `main`
+- The publishing workflow is triggered from the GitHub Release for that `main` tag.
+
 ## npm Distribution Tag Behavior
 
 - Stable versions (for example `0.0.15`) are published with npm dist-tag `latest`.
