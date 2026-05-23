@@ -1,4 +1,4 @@
-import IndexedItem from "./IndexedItem";
+import type IndexedItem from "./IndexedItem";
 
 export default interface Operations {
   update: IndexedItem[];

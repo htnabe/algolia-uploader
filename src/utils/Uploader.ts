@@ -1,11 +1,13 @@
-import { BatchResponse, BrowseResponse, SearchClient } from "algoliasearch";
-import IndexedItem, {
-  isIndexedItem,
-  normalizeIndexedItemArray,
-} from "../types/IndexedItem";
-import Operations from "../types/Operations";
-import { AlgoliaClientProvider } from "./AlgoliaClientProvider";
+import type {
+  BatchResponse,
+  BrowseResponse,
+  SearchClient,
+} from "algoliasearch";
 import { isEqual } from "es-toolkit";
+import type IndexedItem from "../types/IndexedItem";
+import { isIndexedItem, normalizeIndexedItemArray } from "../types/IndexedItem";
+import type Operations from "../types/Operations";
+import type { AlgoliaClientProvider } from "./AlgoliaClientProvider";
 
 /**
  * Class responsible for uploading objects to Algolia.

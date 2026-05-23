@@ -1,13 +1,13 @@
 #!/usr/bin/env node
+import fs from "node:fs";
+import path from "node:path";
 import { defineCommand, runMain } from "citty";
-import { name, version, description } from "../package.json";
-import { readAllJsonFiles } from "./utils/readAllJsonFiles";
-import { ConfigProvider } from "./utils/ConfigProvider";
-import path from "path";
+import { description, name, version } from "../package.json";
 import { isIndexedItem } from "./types/IndexedItem";
-import fs from "fs";
-import { Uploader } from "./utils/Uploader";
 import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
+import { ConfigProvider } from "./utils/ConfigProvider";
+import { readAllJsonFiles } from "./utils/readAllJsonFiles";
+import { Uploader } from "./utils/Uploader";
 
 const main = defineCommand({
   meta: {
@@ -16,7 +16,7 @@ const main = defineCommand({
     description: description,
   },
   args: {},
-  async run({ args }) {
+  async run() {
     try {
       const config = ConfigProvider.getInstance();
       let dataDir = config.getConfig("DATA_DIR");
@@ -30,7 +30,15 @@ const main = defineCommand({
         process.exit(1);
       }
 
-      const algoliaSourceObjects: any[] = readAllJsonFiles(dataDir)[0];
+      const allJsonContents = readAllJsonFiles(dataDir);
+      const algoliaSourceObjects = allJsonContents[0];
+
+      if (!Array.isArray(algoliaSourceObjects)) {
+        console.error(
+          `The content of the provided json file is incompatible. Check the file: ${dataDir}`,
+        );
+        process.exit(1);
+      }
 
       // check the type
       const areObjsIndexedItems = algoliaSourceObjects.every((obj) =>
