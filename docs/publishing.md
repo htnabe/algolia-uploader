@@ -85,6 +85,8 @@ git commit -m "chore(release): 0.0.15-beta.1"
 git push -u origin release/v0.0.15-beta.1
 
 # after merging to main and tagging:
+git checkout main
+git pull origin main
 git tag -a v0.0.15-beta.1 -m "v0.0.15-beta.1"
 git push origin v0.0.15-beta.1
 gh release create v0.0.15-beta.1 --prerelease --target main --title "v0.0.15-beta.1" --generate-notes
