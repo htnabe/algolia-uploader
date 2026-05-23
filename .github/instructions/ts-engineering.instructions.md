@@ -1,7 +1,7 @@
 ---
 description: "Use when writing or modifying TypeScript implementation or tests in src and test. Enforces repository engineering rules: TDD-first workflow, explicit typing, deterministic behavior, focused changes, and regression-safe updates."
 name: "Algolia Uploader TypeScript Engineering Rules"
-applyTo: ["src/**/*.ts", "test/**/*.ts"]
+applyTo: "src/**/*.ts, test/**/*.ts"
 ---
 
 # TypeScript Engineering Rules
@@ -17,6 +17,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
 - Validate external input early and fail fast with actionable errors.
 - Preserve deterministic behavior (stable ordering and repeatable outputs).
 - Use explicit types; avoid introducing new `any` except at unavoidable boundaries.
+- Use Biome for formatting and linting (`npm run lint`) and do not use Prettier in this repository.
 - Apply TypeScript library best practices (clear public API boundaries, explicit types, safe error handling, and compatibility-conscious changes).
 - Apply SOLID principles when introducing or changing abstractions.
 - Reuse existing patterns before introducing new abstractions.
@@ -39,7 +40,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
    - Keep failure messages actionable.
 5. Validate the result.
    - Run targeted tests first, then broader validation as needed.
-   - If the change affects build or lint-sensitive code, run `npm run build` and `npm run lint` when appropriate.
+   - If the change affects build or lint-sensitive code, run `npm run build` and `npm run lint` (Biome) when appropriate.
    - If the change affects release or CI behavior, inspect related workflow or hook docs before finishing.
 6. Summarize the outcome.
    - State what changed, why it changed, and what was validated.

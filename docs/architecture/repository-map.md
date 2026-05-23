@@ -11,7 +11,7 @@ Directory-level map of the repository.
 - `docs/`: Supporting project documentation.
 - `README.md`: Usage and environment setup.
 - `package.json`: Scripts, dependencies, and lint-staged config.
-- `build.config.ts`: `unbuild` build output configuration.
+- `tsdown.config.ts`: `tsdown` build output configuration.
 - `vitest.config.ts`: Test configuration.
 - `tsconfig.json`: TypeScript compiler settings.
 

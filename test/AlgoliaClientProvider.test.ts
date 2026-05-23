@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import type { algoliasearch, SearchClient } from "algoliasearch";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AlgoliaClientProvider } from "@/utils/AlgoliaClientProvider";
-import { ConfigProvider } from "@/utils/ConfigProvider";
-import { algoliasearch, SearchClient } from "algoliasearch";
+import type { ConfigProvider } from "@/utils/ConfigProvider";
 
 // vars for mock
 let mockConfigProvider: ConfigProvider;
@@ -9,6 +9,11 @@ let mockAlgoliaSearch: typeof algoliasearch;
 let mockSearchClient: SearchClient;
 
 beforeEach(() => {
+  process.env.ALGOLIA_APP_ID = "mockAppId";
+  process.env.ALGOLIA_ADMIN_API_KEY = "mockApiKey";
+  process.env.ALGOLIA_INDEX_NAME = "mockIndex";
+  process.env.DATA_DIR = "/data";
+
   // Mock ConfigProvider
   mockConfigProvider = {
     getConfig: vi.fn((key: string) => {

@@ -1,4 +1,4 @@
-import { SearchClient, algoliasearch } from "algoliasearch";
+import { algoliasearch, type SearchClient } from "algoliasearch";
 import { ConfigProvider } from "./ConfigProvider";
 
 /**
