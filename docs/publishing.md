@@ -16,6 +16,19 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Release without direct pushes to `main`.
 - Keep `package.json` version and Git tag aligned.
 - Trigger npm publish from GitHub Release.
+- Keep stable releases on npm `latest` and pre-releases on npm `next`.
+
+## npm Distribution Tag Behavior
+
+- Stable versions (for example `0.0.15`) are published with npm dist-tag `latest`.
+- Pre-release versions (for example `0.0.15-beta.1`, `0.0.15-alpha.1`) are published with npm dist-tag `next` by default.
+- You can override the pre-release dist-tag by setting repository variable `NPM_PRERELEASE_DIST_TAG`.
+   - Example values: `next`, `beta`, `alpha`.
+- Install pre-release builds with:
+
+```bash
+npm install algolia-uploader@next
+```
 
 ## Current Standard Flow
 
@@ -60,6 +73,27 @@ git push origin v0.0.13
 gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
 ```
 
+### 4) Pre-release example (beta)
+
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b release/v0.0.15-beta.1
+npm version 0.0.15-beta.1 --no-git-tag-version
+git add package.json package-lock.json
+git commit -m "chore(release): 0.0.15-beta.1"
+git push -u origin release/v0.0.15-beta.1
+
+# after merging to main and tagging:
+git checkout main
+git pull origin main
+git tag -a v0.0.15-beta.1 -m "v0.0.15-beta.1"
+git push origin v0.0.15-beta.1
+gh release create v0.0.15-beta.1 --prerelease --target main --title "v0.0.15-beta.1" --generate-notes
+```
+
+The publish workflow detects the `-beta.1` suffix and publishes this release to npm with the `next` tag.
+
 ## v0.0.13 Execution Record (Reference)
 
 - `release/v0.0.13 -> dev`: PR #139
@@ -77,6 +111,6 @@ gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
 ## Troubleshooting Checklist
 
 - Is the GitHub Release published (not left as a draft)?
-- Does the tag name match the `vX.Y.Z` format (e.g., `v0.0.13`)?
+- Does the tag name match package version format (e.g., `v0.0.13` or `v0.0.15-beta.1`)?
 - Did the `publish.yml` workflow start from the `release` event?
 - Did the tag/version consistency check pass?
