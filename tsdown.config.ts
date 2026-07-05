@@ -6,7 +6,12 @@ export default defineConfig({
   platform: "node",
   target: "node22",
   outDir: "dist",
+  clean: true,
   minify: true,
+  // automatically export
+  exports: true,
   dts: false,
+  // optimize building speed
+  treeshake: true,
   failOnWarn: true,
 });

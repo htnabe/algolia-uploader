@@ -18,7 +18,9 @@ Project documentation lives in [docs/README.md](docs/README.md).
 - Install deps: npm install
 - Build (tsdown): npm run build
 - Test: npm test
-- Lint/format (Biome): npm run lint
+- Lint (Biome): npm run lint
+- Lint + fix (Biome): npm run lint:fix
+- Lint staged files: npm run lint:staged
 - Local run: npm run dev
 
 ## Toolchain
