@@ -126,7 +126,7 @@ export class Uploader {
     // Check for updates and new items
     for (const newObj of newObjects) {
       const existingObj = existingObjectMap.get(newObj.objectID);
-      if (existingObj == undefined) {
+      if (existingObj === undefined) {
         operations.add.push(newObj);
       } else if (!isEqual(existingObj, newObj)) {
         operations.update.push(newObj);

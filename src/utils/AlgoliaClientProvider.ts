@@ -30,11 +30,14 @@ export class AlgoliaClientProvider {
    * @returns {AlgoliaClientProvider} The singleton instance.
    */
   public static getInstance(): AlgoliaClientProvider {
-    if (!this.instance) {
+    if (!AlgoliaClientProvider.instance) {
       const config = ConfigProvider.getInstance();
-      this.instance = new AlgoliaClientProvider(config, algoliasearch);
+      AlgoliaClientProvider.instance = new AlgoliaClientProvider(
+        config,
+        algoliasearch,
+      );
     }
-    return this.instance;
+    return AlgoliaClientProvider.instance;
   }
 
   /**

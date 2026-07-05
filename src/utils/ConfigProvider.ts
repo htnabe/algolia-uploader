@@ -17,7 +17,7 @@ export class ConfigProvider {
 
     Object.values(REQUIRED_ENV_VARS).forEach((varName) => {
       const value = process.env[varName];
-      if (value == undefined) {
+      if (value === undefined) {
         throw new Error(`Missing required environment variable: ${varName}`);
       }
       this.envVars[varName as keyof typeof REQUIRED_ENV_VARS] = value;
