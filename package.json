@@ -10,7 +10,6 @@
   "bin": {
     "algolia-uploader": "./dist/index.mjs"
   },
-  "types": "./dist/index.d.mts",
   "files": [
     "dist"
   ],
