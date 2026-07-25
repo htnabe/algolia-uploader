@@ -4,6 +4,7 @@ export default defineConfig({
   entry: ["src/index.ts"],
   format: ["esm"],
   platform: "node",
+  shims: true,
   target: "node22",
   outDir: "dist",
   clean: true,
