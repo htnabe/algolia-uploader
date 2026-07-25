@@ -17,22 +17,22 @@
     "node": ">=22.22.1"
   },
   "dependencies": {
-    "algoliasearch": "^5.55.1",
+    "algoliasearch": "^5.56.0",
     "citty": "^0.2.2",
     "es-toolkit": "^1.49.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.1",
-    "@dotenvx/dotenvx": "^2.1.4",
-    "@types/node": "^26.0.1",
+    "@biomejs/biome": "^2.5.4",
+    "@dotenvx/dotenvx": "^2.14.0",
+    "@types/node": "^26.1.1",
     "husky": "^9.1.7",
     "jiti": "^2.7.0",
-    "lint-staged": "^17.0.8",
-    "npm-check-updates": "^22.2.8",
-    "tsdown": "^0.22.3",
-    "typescript": "^6.0.3",
+    "lint-staged": "^17.1.0",
+    "npm-check-updates": "^22.2.9",
+    "tsdown": "^0.22.9",
+    "typescript": "^7.0.2",
     "unrun": "^0.3.1",
-    "vitest": "^4.1.9"
+    "vitest": "^4.1.10"
   },
   "scripts": {
     "build": "tsdown",
