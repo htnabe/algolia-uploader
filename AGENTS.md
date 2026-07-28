@@ -11,7 +11,7 @@ This file helps coding agents be productive in this repository.
 
 ## Docs
 
-Project documentation lives in [docs/README.md](docs/README.md).
+Project documentation lives in [docs/development/quick-start.md](docs/development/quick-start.md).
 
 ## Fast Commands
 
