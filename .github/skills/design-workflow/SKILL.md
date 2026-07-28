@@ -19,7 +19,7 @@ Use this skill for implementation design, architecture-aware planning, and docum
 
 ### Canonical References
 
-- `docs/architecture/repository-map.md`: Repository, source, and test ownership.
+- `docs/development/repository-map.md`: Repository, source, and test ownership.
 - `.github/instructions/docs-structure.instructions.md`: Documentation single-responsibility and anti-duplication rules.
 
 ### Design Checks
@@ -35,7 +35,7 @@ Use this skill for implementation design, architecture-aware planning, and docum
    - State the problem, desired behavior, and constraints.
    - Identify whether the work is code design, documentation design, or both.
 2. Inspect the current structure.
-   - Use `AGENTS.md` and `docs/README.md` to find the canonical project guidance.
+   - Use `AGENTS.md` and `README.md` to find the canonical project guidance.
    - Use the design sources in this file to find the current owners.
 3. Choose ownership boundaries.
    - Reuse an existing owner when the concern already has a canonical home.
