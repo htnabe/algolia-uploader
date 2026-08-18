@@ -9,8 +9,8 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Create a repository Environment named `publish`.
   - GitHub: Settings → Environments → New environment
 - Configure npm Trusted Publishing (OIDC) for this GitHub repository/workflow.
-- No npm token secret is required.
 - Configure branch protection for `main` so the required CI checks for the test workflow must pass before a merge is allowed.
+- No npm token secret is required.
 
 ## Goal
 
@@ -25,14 +25,14 @@ Before using the publish flow, configure the GitHub Actions settings required by
 
 - Do not push release version bumps directly to `dev`.
 - Always use a dedicated release branch from `dev`.
-   - Examples: `release/v0.0.15`, `release/v0.0.15-beta.1`, `release/v0.0.15-rc.1`
+  - Examples: `release/v0.0.15`, `release/v0.0.15-beta.1`, `release/v0.0.15-rc.1`
 - Merge flow for every release:
-   1. `release/*` -> `dev`
-   2. `dev` -> `main`
-   3. Confirm the CI workflow has passed on the merge commit to `main`
-   4. The publish workflow is triggered only after the test workflow succeeds on that `main` commit
-   5. Publish to npm only when `package.json` or `package-lock.json` changed and the version increased
-   6. Create the tag and GitHub Release locally from the published `main` commit
+  1. `release/*` -> `dev`
+  2. `dev` -> `main`
+  3. Confirm the CI workflow has passed on the merge commit to `main`
+  4. The publish workflow is triggered only after the test workflow succeeds on that `main` commit
+  5. Publish to npm only when `package.json` or `package-lock.json` changed and the version increased
+  6. Create the tag and GitHub Release locally from the published `main` commit
 - The GitHub Actions publish workflow is intentionally not triggered by a GitHub Release event.
 
 ## npm Distribution Tag Behavior
@@ -42,7 +42,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Pre-release versions with an `rc` identifier (for example `0.0.15-rc.1`) are published with npm dist-tag `rc`.
 - Other prerelease versions (for example `0.0.15-next.1` or `0.0.15-alpha.1`) are published with npm dist-tag `next` by default.
 - You can override the fallback prerelease tag by setting repository variable `NPM_PRERELEASE_DIST_TAG`.
-   - Example values: `next`, `beta`, `rc`.
+  - Example values: `next`, `beta`, `rc`.
 - Install pre-release builds with:
 
 ```bash
@@ -155,3 +155,8 @@ The publish workflow detects the prerelease identifier and maps it to `beta`, `r
 - Did the required CI checks pass on the merge commit before the publish workflow started?
 - Does the npm dist-tag match the version channel (for example `latest`, `beta`, `rc`, `next`)?
 - Were the git tag and GitHub Release created locally after the npm publish succeeded?
+
+- Does the tag name match package version format (e.g., `v0.0.13` or `v0.0.15-beta.1`)?
+- Did the `publish.yml` workflow start from the `release` event?
+- Did the tag/version consistency check pass?
+>>>>>>> origin/main
