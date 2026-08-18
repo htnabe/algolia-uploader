@@ -51,7 +51,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
 - If behavior changes, update tests before code.
 - If the change is mostly cleanup with no behavioral impact, avoid unrelated refactors anyway.
 - If docs or release flow are affected, update the canonical docs in `docs/` instead of duplicating guidance elsewhere.
-- If the work is a new feature branch task, prefer the branch strategy in `docs/engineering/git-workflow.md`.
+- If the work is a new feature branch task, prefer the branch strategy in `docs/development/git-workflow.md`.
 
 ## Completion Checks
 

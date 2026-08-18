@@ -9,11 +9,6 @@ let mockAlgoliaSearch: typeof algoliasearch;
 let mockSearchClient: SearchClient;
 
 beforeEach(() => {
-  process.env.ALGOLIA_APP_ID = "mockAppId";
-  process.env.ALGOLIA_ADMIN_API_KEY = "mockApiKey";
-  process.env.ALGOLIA_INDEX_NAME = "mockIndex";
-  process.env.DATA_DIR = "/data";
-
   // Mock ConfigProvider
   mockConfigProvider = {
     getConfig: vi.fn((key: string) => {

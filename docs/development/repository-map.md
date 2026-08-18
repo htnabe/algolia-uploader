@@ -40,4 +40,4 @@ Directory-level map of the repository.
 
 ## Related References
 
-- [publishing.md](../publishing.md)
+- [publishing.md](./publishing.md)
