@@ -27,11 +27,6 @@ The required variables are:
 - `ALGOLIA_INDEX_NAME`
 - `DATA_DIR`
 
-The repository may also contain an encrypted `.env` for shared configuration.
-The `npm run dev` command uses `.env.local`; to use the encrypted `.env`
-instead, run `dotenvx run -f .env jiti ./src/index.ts`. That requires the
-corresponding private key in `.env.keys`. Do not commit or share `.env.keys`.
-
 ## 3. Prepare input JSON
 
 Place JSON files in the directory specified by `DATA_DIR`.
@@ -49,8 +44,7 @@ The CLI will read the JSON files and upload the records to Algolia.
 
 ## 5. Run tests
 
-Unit tests use mocked environment variables and do not require `.env`,
-`.env.local`, or `.env.keys`:
+Unit tests use mocked environment variables and do not require `.env.local`:
 
 ```bash
 npm test
