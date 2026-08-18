@@ -49,9 +49,3 @@ Unit tests use mocked environment variables and do not require `.env.local`:
 ```bash
 npm test
 ```
-
-## Related documents
-
-- [Repository map](./repository-map.md)
-- [Git workflow](./git-workflow.md)
-- [Publishing](./publishing.md)

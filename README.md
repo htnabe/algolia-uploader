@@ -13,5 +13,6 @@ npm install -D algolia-uploader
 
 ## Documentation
 
-- Quick start: [docs/development/quick-start.md](docs/development/quick-start.md)
+- Quick start (English): [docs/development/quick-start.md](docs/development/quick-start.md)
+- Quick start (Japanese): [docs/development/quick-start.ja.md](docs/development/quick-start.ja.md)
 - Repository map: [docs/development/repository-map.md](docs/development/repository-map.md)
