@@ -100,9 +100,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "npm"
 
-      # Ensure npm 11.5.1 or later is installed
+      # Trusted publishing needs npm >= 11.5.1; npm 12 requires a newer Node than this workflow uses.
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@^11
 
       - name: Install for publish
         run: npm ci
