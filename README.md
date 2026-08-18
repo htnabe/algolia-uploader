@@ -1,5 +1,7 @@
 # algolia-uploader
 
+[![codecov](https://codecov.io/gh/htnabe/algolia-uploader/graph/badge.svg?token=KP3AQ3MBML)](https://codecov.io/gh/htnabe/algolia-uploader)
+
 This is a command-line utility for uploading JSON data to Algolia. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
 > [!NOTE]
