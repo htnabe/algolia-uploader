@@ -1,56 +1,100 @@
 name: Secure Publish to npm
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Run Vitest Tests on Push"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   id-token: write  # Required for OIDC
   contents: read
 
 concurrency:
-  group: publish-${{ github.ref }}
+  group: publish-${{ github.event.workflow_run.head_sha }}
   cancel-in-progress: true
 
 jobs:
   verify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.release_gate.outputs.should_publish }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22.22.1
-          cache: "npm"
-          registry-url: "https://registry.npmjs.org"
 
-      # Ensure npm 11.5.1 or later is installed
-      - name: Update npm
-        run: npm install -g npm@latest
+      - name: Determine whether this is a release bump
+        id: release_gate
+        env:
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
 
-      - name: Install dependencies
-        run: npm ci
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "current_version=${CURRENT_VERSION}"
+
+          if ! git rev-parse --verify "${HEAD_SHA}^" >/dev/null 2>&1; then
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "No parent commit available; skipping publish."
+            exit 0
+          fi
+
+          if git diff --name-only "${HEAD_SHA}^" "${HEAD_SHA}" -- package.json package-lock.json | grep -qE '^(package\.json|package-lock\.json)$'; then
+            PACKAGE_FILES_CHANGED=true
+          else
+            PACKAGE_FILES_CHANGED=false
+          fi
+
+          if [ "${PACKAGE_FILES_CHANGED}" != "true" ]; then
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "No package version file changes detected; skipping publish."
+            exit 0
+          fi
+
+          PREVIOUS_VERSION=$(git show "${HEAD_SHA}^:package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
+          echo "previous_version=${PREVIOUS_VERSION}"
+
+          if [[ "${CURRENT_VERSION}" == "${PREVIOUS_VERSION}" ]]; then
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "Version did not change; skipping publish."
+            exit 0
+          fi
+
+          if ! npx semver -r ">${PREVIOUS_VERSION}" "${CURRENT_VERSION}" >/dev/null 2>&1; then
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "Version did not increase from ${PREVIOUS_VERSION} to ${CURRENT_VERSION}; skipping publish."
+            exit 0
+          fi
+
+          echo "should_publish=true" >> "$GITHUB_OUTPUT"
+          echo "Release version bump detected: ${PREVIOUS_VERSION} -> ${CURRENT_VERSION}"
 
       - name: Run audit (warn on high)
         run: npm audit --audit-level=high || true
 
   publish:
     needs: verify
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: ${{ needs.verify.outputs.should_publish == 'true' }}
     runs-on: ubuntu-latest
     environment: publish
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22.22.1
           registry-url: "https://registry.npmjs.org"
@@ -63,15 +107,12 @@ jobs:
       - name: Install for publish
         run: npm ci
 
-      - name: Verify tag matches package.json
+      - name: Verify package version is valid semver
         run: |
-          # extract tag name and normalize by removing a leading 'v' if present
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          TAG_VERSION=${TAG_NAME#v}
           PKG_VERSION=$(node -p "require('./package.json').version")
-          echo "tag=${TAG_NAME} normalized=${TAG_VERSION} package=${PKG_VERSION}"
-          if [ "${TAG_VERSION}" != "${PKG_VERSION}" ]; then
-            echo "Tag (${TAG_NAME}) normalized to (${TAG_VERSION}) does not match package.json version (${PKG_VERSION})"; exit 1
+          echo "package=${PKG_VERSION}"
+          if ! [[ "${PKG_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "package.json version is not valid semver: ${PKG_VERSION}"; exit 1
           fi
 
       - name: Build for publish
@@ -94,8 +135,25 @@ jobs:
           NPM_DIST_TAG=latest
 
           if [[ "${PKG_VERSION}" == *"-"* ]]; then
-            # default prerelease channel is "next", but can be overridden from repository variables
-            NPM_DIST_TAG=${NPM_PRERELEASE_DIST_TAG:-next}
+            PRE_RELEASE_ID=${PKG_VERSION#*-}
+            PRE_RELEASE_ID=${PRE_RELEASE_ID%%+*}
+            PRE_RELEASE_ID=${PRE_RELEASE_ID%%.*}
+            PRE_RELEASE_ID=${PRE_RELEASE_ID,,}
+
+            case "${PRE_RELEASE_ID}" in
+              beta)
+                NPM_DIST_TAG=beta
+                ;;
+              rc)
+                NPM_DIST_TAG=rc
+                ;;
+              next)
+                NPM_DIST_TAG=next
+                ;;
+              *)
+                NPM_DIST_TAG=${NPM_PRERELEASE_DIST_TAG:-next}
+                ;;
+            esac
           fi
 
           echo "pkg_version=${PKG_VERSION}" >> "$GITHUB_OUTPUT"
