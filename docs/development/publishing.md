@@ -41,17 +41,28 @@ Before using the publish flow, configure the GitHub Actions settings required by
 npm install algolia-uploader@next
 ```
 
-## Current Standard Flow
+## Current Standard Flow (Release Branch → dev → main with CI Verification)
 
 1. Create a release branch from `dev`.
    - Example: `release/v0.0.13`
 2. Bump version on the release branch only.
    - `npm version 0.0.13 --no-git-tag-version`
 3. Open a PR from the release branch to `dev`.
-4. Open a PR from `dev` to `main`.
-5. After merge to `main`, create a tag on the target commit.
-   - Example: `v0.0.13`
-6. Publish a GitHub Release to trigger the publish workflow.
+4. **Wait for GitHub Actions CI to pass** on the release branch PR.
+   - Check: https://github.com/htnabe/algolia-uploader/actions/workflows/test.yml
+   - All jobs (`test`, `package-build`, `runtime-smoke`) must succeed
+5. Merge PR to `dev` (verify CI passes on merge).
+6. **Wait for GitHub Actions CI to pass** on `dev` after merge.
+7. Open a PR from `dev` to `main`.
+8. **Verify CI passes** on the `dev → main` PR before merging.
+   - Do not merge if any test fails
+9. Merge PR to `main`.
+10. **Wait for GitHub Actions CI to pass** on `main` after merge.
+11. Verify npm publish completed successfully (check npm registry for new version).
+12. After npm publish succeeds, create git tag and GitHub Release locally:
+    - `git tag -a v0.0.13 -m "v0.0.13"`
+    - `git push origin v0.0.13`
+    - `gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes`
 
 ## Command Example
 
@@ -67,11 +78,31 @@ git commit -m "chore(release): 0.0.13"
 git push -u origin release/v0.0.13
 ```
 
-### 2) Open pull requests
+### 2) Open pull requests and verify CI passes before merge
 
 ```bash
+# Create PR from release branch to dev
 gh pr create --base dev --head release/v0.0.13 --title "chore(release): 0.0.13"
-gh pr create --base main --head dev --title "dev"
+
+# WAIT for CI to pass on this PR
+# Check: https://github.com/htnabe/algolia-uploader/actions/workflows/test.yml
+# Do not proceed until all jobs pass
+
+# After CI passes, merge to dev
+gh pr merge --squash <RELEASE_PR_NUMBER>
+
+# WAIT for CI to pass on dev after merge
+
+# Create PR from dev to main
+gh pr create --base main --head dev --title "chore(release): merge dev to main"
+
+# WAIT for CI to pass on this PR before merging
+# Do not merge if tests fail
+
+# After CI passes, merge to main
+gh pr merge --squash <DEV_MAIN_PR_NUMBER>
+
+# WAIT for CI to pass on main after merge
 ```
 
 ### 3) Tag and Release after merge to main
@@ -118,6 +149,16 @@ The publish workflow detects the `-beta.1` suffix and publishes this release to 
 - Do not use `gh pr merge --delete-branch` on `dev -> main` PRs.
   - It can unintentionally delete the `dev` branch.
 - Always create the release tag on the exact `main` commit to be published.
+- **CI must pass before any merge**: Never merge a release PR if GitHub Actions tests fail.
+  - Failing CI indicates package or code issues that must be resolved first.
+  - Failed CI on `main` invalidates the release flow
+- **Verify all CI jobs pass**:
+  - `test` job (vitest, typecheck)
+  - `package-build` job (npm ci, npm run build)
+  - `runtime-smoke` job (CLI execution test)
+- **Tag and Release only after npm publish**: Create git tags and GitHub Releases only after confirming the new version is available on npm.
+  - This prevents git/npm version mismatches
+  - If npm publish fails, no orphaned tags remain
 
 ## Troubleshooting Checklist
 
