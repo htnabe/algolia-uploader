@@ -15,19 +15,21 @@ Before using the publish flow, configure the GitHub Actions settings required by
 
 - Release without direct pushes to `main`.
 - Keep `package.json` version and Git tag aligned.
-- Trigger npm publish from GitHub Release.
+- Automatically publish to npm when `dev` is merged to `main`.
+- Create git tag and GitHub Release only after npm publish succeeds.
 - Keep stable releases on npm `latest` and pre-releases on npm `next`.
 
-## Release Policy (Main-First)
+## Release Policy (Main-First, Automated npm Publish)
 
 - Do not push release version bumps directly to `dev`.
 - Always use a dedicated release branch from `dev`.
    - Examples: `release/v0.0.15`, `release/v0.0.15-beta.1`
 - Merge flow for every release:
-   1. `release/*` -> `dev`
-   2. `dev` -> `main`
-   3. Create tag and GitHub Release from the target commit on `main`
-- The publishing workflow is triggered from the GitHub Release for that `main` tag.
+   1. `release/*` -> `dev` (verify CI passes)
+   2. `dev` -> `main` (verify CI passes)
+   3. GitHub Actions automatically publishes to npm
+   4. After npm publish succeeds, create git tag and GitHub Release locally
+- **Important**: npm publish is automatic on `main` push. Do not create tags before npm publish succeeds.
 
 ## npm Distribution Tag Behavior
 
@@ -136,19 +138,34 @@ gh release create v0.0.15-beta.1 --prerelease --target main --title "v0.0.15-bet
 
 The publish workflow detects the `-beta.1` suffix and publishes this release to npm with the `next` tag.
 
+## Troubleshooting: npm Publish Failure
+
+If npm publish fails after merging to `main`:
+
+1. **Do not create a git tag** for the failed version.
+2. Fix the issues in a new commit on `main` (or revert and retry).
+3. Bump version in `package.json` and `package-lock.json`.
+4. Push the fix to `main` — npm publish will automatically retry.
+5. After npm publish succeeds, create the git tag.
+
+This approach prevents orphaned git tags that don't match released npm versions.
+
 ## v0.0.13 Execution Record (Reference)
 
 - `release/v0.0.13 -> dev`: PR #139
 - `dev -> main`: PR #140
-- tag/release: `v0.0.13`
-- publish workflow: success
+- npm publish (automatic): success
+- tag/release (local): `v0.0.13` created after npm publish
 
 ## Operational Notes
 
 - `npm version patch` normally creates a tag automatically; use `--no-git-tag-version` on release branches.
 - Do not use `gh pr merge --delete-branch` on `dev -> main` PRs.
   - It can unintentionally delete the `dev` branch.
-- Always create the release tag on the exact `main` commit to be published.
+- **Tag creation is now a local, manual step** — only create after verifying npm publish succeeded.
+- Always create the release tag on the exact `main` commit from which npm publish ran.
+- **CI must pass before merging** — npm publish should never run if tests fail.
+- Check npm registry directly: `npm view algolia-uploader@<version>` or https://www.npmjs.com/package/algolia-uploader
 - **CI must pass before any merge**: Never merge a release PR if GitHub Actions tests fail.
   - Failing CI indicates package or code issues that must be resolved first.
   - Failed CI on `main` invalidates the release flow
