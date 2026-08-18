@@ -4,10 +4,6 @@ import { ConfigProvider } from "@/utils/ConfigProvider";
 describe("ConfigProvider", () => {
   beforeEach(() => {
     vi.resetModules();
-    process.env.ALGOLIA_APP_ID = "test-app-id";
-    process.env.ALGOLIA_ADMIN_API_KEY = "test-admin-key";
-    process.env.ALGOLIA_INDEX_NAME = "test-index";
-    process.env.DATA_DIR = "/data";
   });
 
   it("should return a singleton instance", () => {
