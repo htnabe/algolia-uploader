@@ -12,6 +12,7 @@ This file helps coding agents be productive in this repository.
 ## Docs
 
 Project documentation lives in [docs/development/quick-start.md](docs/development/quick-start.md).
+For contributor setup and development workflow, see [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md).
 
 ## Fast Commands
 

@@ -1,6 +1,9 @@
 ## Overview
 
-<!-- Briefly describe the purpose of this pull request. -->
+<!-- 
+- Briefly describe the purpose of this pull request.
+- Before writing this description, read [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md)
+ -->
 
 ## Changes
 
@@ -12,7 +15,6 @@
 
 ## Checklist
 
-- [ ] I have followed the code style guidelines
 - [ ] I have performed a self-review of my code
 - [ ] I have updated the documentation (if necessary)
 - [ ] I have added appropriate labels to this pull request

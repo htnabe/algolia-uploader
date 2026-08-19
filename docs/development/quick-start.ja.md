@@ -1,16 +1,16 @@
 # クイックスタート
 
-このガイドでは、アップローダーをローカルで実行するための最小限の手順を説明します。
+このガイドでは、ライブラリ利用者がライブラリを実行するための最小限の手順を説明します。
 
 ## 1. 依存関係をインストールする
 
 ```bash
-npm install
+npm install -D algolia-uploader
 ```
 
 ## 2. 環境変数を準備する
 
-ローカルでデバッグする場合は、自分の値を使用して `.env.local` ファイルを作成します。このファイルは Git の対象外であり、コミットしてはいけません。
+ローカルで実行する場合は、以下のような `.env` ファイルを作成します。
 
 ```env
 ALGOLIA_APP_ID=1234abcd5768
@@ -21,10 +21,12 @@ DATA_DIR=path/to/dir
 
 必要な環境変数は次のとおりです。
 
-- `ALGOLIA_APP_ID`
-- `ALGOLIA_ADMIN_API_KEY`
-- `ALGOLIA_INDEX_NAME`
-- `DATA_DIR`
+| 環境変数 | 説明 |
+| --- | --- |
+| `ALGOLIA_APP_ID` | Algolia の App ID です。 |
+| `ALGOLIA_ADMIN_API_KEY` | Algolia の API Key です。インデックスを更新できるKeyであればAdmin API Keyでなくても構いません。 |
+| `ALGOLIA_INDEX_NAME` | Algolia で使用している Index 名です。 |
+| `DATA_DIR` | アップロードしたい JSON ファイルを格納しているフォルダです。JSON ファイル名を個別指定したアップロードは、まだサポートしていません。 |
 
 ## 3. 入力 JSON を準備する
 
@@ -35,16 +37,14 @@ DATA_DIR=path/to/dir
 
 ## 4. アップローダーを実行する
 
-```bash
-npm run dev
+`package.json`では以下のようなscriptで実行できます。
+
+```json
+{
+  "scripts": {
+    "algolia": "algolia-uploader"
+  }
+}
 ```
 
 CLI が JSON ファイルを読み込み、レコードを Algolia にアップロードします。
-
-## 5. テストを実行する
-
-ユニットテストでは環境変数をモックしているため、`.env.local` は必要ありません。
-
-```bash
-npm test
-```
