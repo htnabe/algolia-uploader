@@ -1,6 +1,9 @@
 # algolia-uploader
 
 [![codecov](https://codecov.io/gh/htnabe/algolia-uploader/graph/badge.svg?token=KP3AQ3MBML)](https://codecov.io/gh/htnabe/algolia-uploader)
+[![npm version](https://img.shields.io/npm/v/@htnabe/algolia-uploader)](https://www.npmjs.com/package/@htnabe/algolia-uploader)
+[![npm downloads](https://img.shields.io/npm/dm/@htnabe/algolia-uploader)](https://www.npmjs.com/package/@htnabe/algolia-uploader)
+[![license](https://img.shields.io/npm/l/@htnabe/algolia-uploader)](https://github.com/htnabe/algolia-uploader/blob/main/LICENSE)
 
 This is a command-line utility for uploading JSON data to Algolia. This idea comes from [atomic-algolia](https://github.com/chrisdmacrae/atomic-algolia).
 
