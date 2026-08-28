@@ -8,6 +8,7 @@ import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
 import { ConfigProvider } from "./utils/ConfigProvider";
 import { readAllJsonFiles } from "./utils/readAllJsonFiles";
 import { Uploader } from "./utils/Uploader";
+import "@dotenvx/dotenvx/config";
 
 const main = defineCommand({
   meta: {
