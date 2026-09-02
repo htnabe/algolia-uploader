@@ -17,14 +17,14 @@ describe("ConfigProvider", () => {
     expect(config.getConfig("ALGOLIA_APP_ID")).toBe("test-app-id");
     expect(config.getConfig("ALGOLIA_ADMIN_API_KEY")).toBe("test-admin-key");
     expect(config.getConfig("ALGOLIA_INDEX_NAME")).toBe("test-index");
-    expect(config.getConfig("DATA_DIR")).toBe("/data");
+    expect(ConfigProvider.isUsingDeprecatedDataDir()).toBe(false);
   });
 
   it("should throw an error if a required variable is missing", async () => {
     delete process.env.ALGOLIA_ADMIN_API_KEY;
 
     // Reset module to throw an error
-    const { ConfigProvider } = await import("../src/utils/ConfigProvider");
+    const { ConfigProvider } = await import("./ConfigProvider");
     expect(() => ConfigProvider.getInstance()).toThrow(
       "Missing required environment variable: ALGOLIA_ADMIN_API_KEY",
     );

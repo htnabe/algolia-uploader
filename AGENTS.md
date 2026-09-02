@@ -13,6 +13,7 @@ This file helps coding agents be productive in this repository.
 
 Project documentation lives in [docs/development/quick-start.md](docs/development/quick-start.md).
 For contributor setup and development workflow, see [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md).
+Repository layout and feature map: [docs/development/repository-map.md](docs/development/repository-map.md).
 
 ## Fast Commands
 
@@ -53,5 +54,6 @@ See setup details in [README.md](README.md).
 
 - DATA_DIR must point to an existing directory.
 - Only JSON inputs are read by the loader utility.
+- Positional arguments are not currently supported; provide input files with `--data-files`.
 - Version/tag consistency is validated in the publish workflow.
 - This repo uses npm trusted publishing (OIDC); npm token secrets are not required for publish.
