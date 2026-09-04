@@ -45,7 +45,7 @@
     "lint:staged": "lint-staged",
     "typecheck": "tsgo -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "dev": "dotenvx run -f .env.local jiti ./src/index.ts",
+    "dev": "JITI_TSCONFIG_PATHS=true dotenvx run -f .env.local jiti ./src/index.ts",
     "update": "ncu --upgrade && npm install"
   },
   "keywords": [

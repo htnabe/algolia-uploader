@@ -5,7 +5,7 @@ import { description, name, version } from "../package.json";
 import { ConfigProvider } from "./utils/ConfigProvider";
 import "@dotenvx/dotenvx/config";
 import { showAuthors } from "./features/authors/showAuthors";
-import { retrieveDataFromDir } from "./features/dataDir/retrieveDataFomDir";
+import { retrieveDataFromDir } from "./features/dataDir/retrieveDataFromDir";
 import { retrieveDataFromFiles } from "./features/dataFiles/retrieveDataFromFiles";
 import type IndexedItem from "./types/IndexedItem";
 import { AlgoliaClientProvider } from "./utils/AlgoliaClientProvider";
