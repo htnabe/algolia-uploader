@@ -20,6 +20,13 @@ describe("ConfigProvider", () => {
     expect(ConfigProvider.isUsingDeprecatedDataDir()).toBe(false);
   });
 
+  it("should expose the deprecated DATA_DIR when present", () => {
+    process.env.DATA_DIR = "./data";
+
+    expect(ConfigProvider.getDeprecatedDataDir()).toBe("./data");
+    expect(ConfigProvider.isUsingDeprecatedDataDir()).toBe(true);
+  });
+
   it("should throw an error if a required variable is missing", async () => {
     delete process.env.ALGOLIA_ADMIN_API_KEY;
 
