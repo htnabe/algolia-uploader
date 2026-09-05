@@ -54,6 +54,6 @@ See setup details in [README.md](README.md).
 
 - DATA_DIR must point to an existing directory.
 - Only JSON inputs are read by the loader utility.
-- Positional arguments are not currently supported; provide input files with `--data-files`.
+- Positional arguments are only supported as additional paths after `--data-files`; bare positional arguments are rejected.
 - Version/tag consistency is validated in the publish workflow.
 - This repo uses npm trusted publishing (OIDC); npm token secrets are not required for publish.

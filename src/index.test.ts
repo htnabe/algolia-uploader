@@ -71,11 +71,13 @@ beforeEach(() => {
 describe("CLI file list handling", () => {
   it("calls retrieveDataFromFiles for each path provided via --data-files", async () => {
     const cwd = process.cwd();
-    const input = "foo.json, /abs/bar.json";
     const items = [{ objectID: "item-001" }];
     mocks.retrieveDataFromFiles.mockResolvedValue(items);
 
-    await runMain({ dataFiles: input } as MainContext["args"]);
+    await runMain({
+      dataFiles: "foo.json",
+      _: ["/abs/bar.json"],
+    } as MainContext["args"]);
 
     expect(mocks.retrieveDataFromFiles).toHaveBeenCalledTimes(1);
     const calledWith = mocks.retrieveDataFromFiles.mock.calls[0][0] as string[];
@@ -86,11 +88,44 @@ describe("CLI file list handling", () => {
     expect(mocks.uploadObjects).toHaveBeenCalledWith(items);
   });
 
+  it("combines --data-files with additional space-separated paths via real CLI parsing", async () => {
+    const cwd = process.cwd();
+    const items = [{ objectID: "item-001" }];
+    mocks.retrieveDataFromFiles.mockResolvedValue(items);
+
+    await runCittyCommand(main, {
+      rawArgs: ["--data-files", "foo.json", "/abs/bar.json"],
+    });
+
+    expect(mocks.retrieveDataFromFiles).toHaveBeenCalledTimes(1);
+    const calledWith = mocks.retrieveDataFromFiles.mock.calls[0][0] as string[];
+    expect(calledWith[0]).toBe(path.resolve(cwd, "foo.json"));
+    expect(calledWith[1]).toBe("/abs/bar.json");
+  });
+
   it("does not upload when --data-files resolves to no items", async () => {
     await runMain({ dataFiles: "foo.json" } as MainContext["args"]);
 
     expect(mocks.retrieveDataFromFiles).toHaveBeenCalledTimes(1);
     expect(mocks.Uploader).not.toHaveBeenCalled();
+  });
+
+  it("trims whitespace and drops empty positional paths", async () => {
+    const cwd = process.cwd();
+    const items = [{ objectID: "item-001" }];
+    mocks.retrieveDataFromFiles.mockResolvedValue(items);
+
+    await runMain({
+      dataFiles: "  foo.json  ",
+      _: ["", "  /abs/bar.json  ", "   "],
+    } as MainContext["args"]);
+
+    expect(mocks.retrieveDataFromFiles).toHaveBeenCalledTimes(1);
+    const calledWith = mocks.retrieveDataFromFiles.mock.calls[0][0] as string[];
+    expect(calledWith).toEqual([
+      path.resolve(cwd, "foo.json"),
+      "/abs/bar.json",
+    ]);
   });
 
   it("rejects positional args", async () => {

@@ -24,7 +24,8 @@ export const main = defineCommand({
     },
     dataFiles: {
       type: "string",
-      description: "Comma-separated list of file paths to JSON files",
+      description:
+        "Path(s) to JSON files. Provide multiple paths separated by spaces after --data-files.",
     },
   },
   async run({ args }) {
@@ -36,16 +37,15 @@ export const main = defineCommand({
         return;
       }
 
-      let fileList: string[] | undefined;
+      const positionalPaths = Array.isArray(args._) ? (args._ as string[]) : [];
+      const fileList: string[] = [
+        ...(args.dataFiles ? [args.dataFiles as string] : []),
+        ...positionalPaths,
+      ]
+        .map((tmpPath) => tmpPath.trim())
+        .filter((tmpPath) => tmpPath.length > 0);
 
-      if (args.dataFiles) {
-        fileList = (args.dataFiles as string)
-          .split(",")
-          .map((tmpPath) => tmpPath.trim())
-          .filter((tmpPath) => tmpPath.length > 0);
-      }
-
-      if (fileList && fileList.length > 0) {
+      if (fileList.length > 0) {
         // Resolve paths to absolute and delegate to the dataFiles feature.
         const resolvedPaths: string[] = fileList.map((p) =>
           path.isAbsolute(p) ? p : path.resolve(process.cwd(), p),
@@ -101,9 +101,10 @@ const validateCliArgs = (args: Record<string, unknown>): void => {
     throw new Error(`Unknown argument: --${unknownArgs[0]}`);
   }
 
-  if (Array.isArray(args._) && args._.length > 0) {
+  const hasPositionalArgs = Array.isArray(args._) && args._.length > 0;
+  if (hasPositionalArgs && !args.dataFiles) {
     throw new Error(
-      "Positional arguments are not supported. Use --data-files instead.",
+      "Positional arguments are only supported as additional file paths after --data-files.",
     );
   }
 };

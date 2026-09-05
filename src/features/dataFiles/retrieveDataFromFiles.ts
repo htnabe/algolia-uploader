@@ -13,7 +13,9 @@ export async function retrieveDataFromFiles(
   filePaths: string[],
 ): Promise<IndexedItem[]> {
   if (!Array.isArray(filePaths) || filePaths.length === 0) {
-    console.error("Error: no files provided to handleDataFiles");
+    console.error(
+      `Error: No JSON files provided. Pass at least one path with --data-files.`,
+    );
     process.exit(1);
   }
 

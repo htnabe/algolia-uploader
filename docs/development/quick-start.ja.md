@@ -29,21 +29,21 @@ ALGOLIA_INDEX_NAME=algoliaIndexName
 
 ## 入力 JSON を準備する
 
-AlgoliaにアップっロードするJSONファイルは、個別のファイルパスを `--data-files` フラグで指定してください。
+AlgoliaにアップロードするJSONファイルは、個別のファイルパスを `--data-files` フラグで指定してください。
 
 - 対応しているのは JSON ファイルのみです。
 - 各アイテムには `objectID` フィールドが必要です。
 
 ## アップローダーを実行する
 
-`package.json`で以下のようなscriptを設定してください（複数ファイルはカンマ区切りで指定できます）：
+`package.json`で以下のようなscriptを設定してください（複数ファイルはスペース区切りで指定できます）：
 
 ```json
 {
   "scripts": {
-    "algolia": "algolia-uploader --data-files \"path/to/a.json,path/to/b.json\""
+    "algolia": "algolia-uploader --data-files path/to/a.json path/to/b.json"
   }
 }
 ```
 
-位置引数は現在サポートしていません。入力ファイルは `--data-files` で指定してください。
+`--data-files` の後に続けて指定した追加のパスは位置引数として扱われます。`--data-files` を伴わない位置引数のみの指定は引き続きサポートされません。

@@ -22,14 +22,14 @@ ALGOLIA_INDEX_NAME=yourIndexName
 
 The uploader accepts JSON files containing records with an `objectID` field. Provide input using CLI flags (recommended):
 
-- `--data-files` — comma-separated list of JSON file paths
+- `--data-files` — space-separated list of JSON file paths
 
 Example `package.json` script (using `--data-files`):
 
 ```json
 {
 	"scripts": {
-		"algolia": "algolia-uploader --data-files \"path/to/a.json,path/to/b.json\""
+		"algolia": "algolia-uploader --data-files path/to/a.json path/to/b.json"
 	}
 }
 ```
@@ -38,6 +38,6 @@ Example `package.json` script (using `--data-files`):
 
 - Only JSON files are supported.
 - Each record must include an `objectID` field.
-- Positional arguments are not currently supported. Use `--data-files` to provide input files.
+- Additional paths after `--data-files` are accepted as positional arguments; bare positional arguments without `--data-files` are still rejected.
 
 For more details, see the repository documentation.

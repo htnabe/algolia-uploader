@@ -35,7 +35,7 @@ Directory-level map of the repository.
 
 - `src/features/authors`: CLI flag `--authors` implementation (show package authors).
 - `src/features/dataDir`: Handler for `DATA_DIR` accepting a directory or single JSON file.
-- `src/features/dataFiles`: Handler for `--dataFiles` accepting one-or-more explicit JSON file paths.
+- `src/features/dataFiles`: Handler for `--data-files` accepting one-or-more explicit JSON file paths.
 
 ## Test Layout
 

@@ -60,7 +60,7 @@ describe("retrieveDataFromFiles", () => {
 
     await expect(retrieveDataFromFiles([])).rejects.toThrow("process.exit:1");
     expect(errorSpy).toHaveBeenCalledWith(
-      "Error: no files provided to handleDataFiles",
+      "Error: No JSON files provided. Pass at least one path with --data-files.",
     );
   });
 
