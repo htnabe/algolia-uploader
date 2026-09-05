@@ -33,7 +33,13 @@ export async function retrieveDataFromDir(
     }
   } else if (stat.isFile()) {
     const content = fs.readFileSync(targetPath, "utf8");
-    const parsed = JSON.parse(content);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(content);
+    } catch {
+      console.error(`Error: invalid JSON in file - ${targetPath}`);
+      process.exit(1);
+    }
     if (!Array.isArray(parsed)) {
       console.error(
         `The content of the provided json file is incompatible. Check the file: ${targetPath}`,
