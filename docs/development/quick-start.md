@@ -1,50 +1,43 @@
 # Quick Start
 
-This guide summarizes the minimum steps for library users to run the uploader.
+This guide explains the minimum steps to run the uploader.
 
-## 1. Install dependencies
+## 1. Install
 
 ```bash
 npm install -D algolia-uploader
 ```
 
-## 2. Prepare environment variables
+## 2. Credentials
 
-For local execution, create a `.env` file like the example below.
+Create a `.env` file for local development with your Algolia credentials:
 
 ```env
-ALGOLIA_APP_ID=1234abcd5768
-ALGOLIA_ADMIN_API_KEY=hogehigehuge
-ALGOLIA_INDEX_NAME=algoliaIndexName
-DATA_DIR=path/to/dir
+ALGOLIA_APP_ID=yourAppId
+ALGOLIA_ADMIN_API_KEY=yourAdminApiKey
+ALGOLIA_INDEX_NAME=yourIndexName
 ```
 
-The required variables are:
+## 3. Provide input JSON
 
-| Environment Variable | Description |
-| --- | --- |
-| `ALGOLIA_APP_ID` | Your Algolia App ID. |
-| `ALGOLIA_ADMIN_API_KEY` | Your Algolia API key. It does not need to be an Admin key as long as it can update the target index. |
-| `ALGOLIA_INDEX_NAME` | The name of your Algolia index. |
-| `DATA_DIR` | Directory that contains JSON files to upload. Upload by specifying individual filenames is not supported yet. |
+The uploader accepts JSON files containing records with an `objectID` field. Provide input using CLI flags (recommended):
 
-## 3. Prepare input JSON
+- `--data-files` — space-separated list of JSON file paths
 
-Place JSON files in the directory specified by `DATA_DIR`.
-
-- Only JSON files are supported.
-- Each item must include an `objectID` field.
-
-## 4. Run the uploader
-
-You can run the uploader through a script like this in your `package.json`:
+Example `package.json` script (using `--data-files`):
 
 ```json
 {
 	"scripts": {
-		"algolia": "algolia-uploader"
+		"algolia": "algolia-uploader --data-files path/to/a.json path/to/b.json"
 	}
 }
 ```
 
-The CLI will read the JSON files and upload the records to Algolia.
+## Notes
+
+- Only JSON files are supported.
+- Each record must include an `objectID` field.
+- Additional paths after `--data-files` are accepted as positional arguments; bare positional arguments without `--data-files` are still rejected.
+
+For more details, see the repository documentation.

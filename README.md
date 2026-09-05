@@ -18,8 +18,8 @@ npm install -D algolia-uploader
 
 ## Documentation
 
-- Quick start (English): [docs/development/quick-start.md](docs/development/quick-start.md)
-- Quick start (Japanese): [docs/development/quick-start.ja.md](docs/development/quick-start.ja.md)
-- Contributing (English): [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md)
-- Contributing (Japanese): [docs/development/CONTRIBUTING.ja.md](docs/development/CONTRIBUTING.ja.md)
-- Repository map: [docs/development/repository-map.md](docs/development/repository-map.md)
+- Quick start: [eng](docs/development/quick-start.md), [日本語](docs/development/quick-start.ja.md)
+- Contributing: [eng](docs/development/CONTRIBUTING.md), [日本語](docs/development/CONTRIBUTING.ja.md)
+
+> [!NOTE]
+> The `DATA_DIR` environment variable is deprecated and will be removed in a future release — prefer the CLI flag `--data-files`.
