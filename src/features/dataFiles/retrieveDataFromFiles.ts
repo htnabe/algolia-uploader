@@ -1,8 +1,6 @@
 import fs from "node:fs";
-import {
-  type default as IndexedItem,
-  isIndexedItem,
-} from "@/types/IndexedItem";
+import type IndexedItem from "@/types/IndexedItem";
+import { isIndexedItem } from "@/types/IndexedItem";
 
 /**
  * Retrieve and parse IndexedItem objects from the specified JSON files.
