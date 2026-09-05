@@ -111,7 +111,10 @@ const validateCliArgs = (args: Record<string, unknown>): void => {
 };
 
 // Only auto-run when this module is executed directly (not imported, e.g. in tests).
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
   runMain(main);
 }
 
