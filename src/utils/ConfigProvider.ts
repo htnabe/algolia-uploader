@@ -1,9 +1,8 @@
-// variable to make complementary works
+// Only Algolia credentials are required. DATA_DIR is optional and deprecated.
 const REQUIRED_ENV_VARS = {
   ALGOLIA_APP_ID: "ALGOLIA_APP_ID",
   ALGOLIA_ADMIN_API_KEY: "ALGOLIA_ADMIN_API_KEY",
   ALGOLIA_INDEX_NAME: "ALGOLIA_INDEX_NAME",
-  DATA_DIR: "DATA_DIR",
 } as const;
 
 export class ConfigProvider {
@@ -51,5 +50,19 @@ export class ConfigProvider {
    */
   public getConfig<K extends keyof typeof REQUIRED_ENV_VARS>(key: K): string {
     return this.envVars[key];
+  }
+
+  /**
+   * Returns the deprecated DATA_DIR value if it exists in env.
+   */
+  public static getDeprecatedDataDir(): string | undefined {
+    return process.env.DATA_DIR;
+  }
+
+  /**
+   * Returns true when the deprecated `DATA_DIR` env var is present.
+   */
+  public static isUsingDeprecatedDataDir(): boolean {
+    return process.env.DATA_DIR !== undefined;
   }
 }
