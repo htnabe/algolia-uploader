@@ -21,7 +21,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Publish to npm only after the required CI succeeds for the `main` merge commit.
 - Publish to npm automatically only when a release version was intentionally bumped.
 - Keep stable releases on npm `latest` and pre-releases on the matching channel (`beta`, `rc`, or `next`).
-- Create the git tag and GitHub Release locally only after the publish workflow succeeds.
+- Automatically create the git tag and GitHub Release from the publish workflow, only after `npm publish` succeeds.
 
 ## Release Policy (Main-First)
 
@@ -34,7 +34,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
   3. Confirm the CI workflow has passed on the merge commit to `main`
   4. The publish workflow is triggered only after the test workflow succeeds on that `main` commit
   5. Publish to npm only when `package.json` or `package-lock.json` changed and the version increased
-  6. Create the tag and GitHub Release locally from the published `main` commit
+  6. The publish workflow automatically creates the git tag and GitHub Release on the same `main` commit, only after `npm publish` succeeds
 - The GitHub Actions publish workflow is intentionally not triggered by a GitHub Release event.
 
 ## CI Polling Rule (Required)
@@ -43,7 +43,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Wait at most 5 minutes. If the checks have not all succeeded by then, treat the release as failed and stop immediately.
 - Do not merge, tag, or publish a release while checks are pending, failing, or unresolved.
 - Apply the same rule to the publish workflow run on `main`: poll it, cap the wait at 5 minutes, and stop on timeout or failure.
-- Never create the tag or GitHub Release before the publish workflow has succeeded.
+- The publish workflow itself only creates the tag and GitHub Release after its own `npm publish` step succeeds, so no manual ordering is required.
 
 ## npm Distribution Tag Behavior
 
@@ -65,9 +65,25 @@ npm install algolia-uploader@next
 
 ## Automatic Publish Safety Rule
 
-The publish workflow only runs after the main-branch test workflow succeeds, and only when the `main` commit includes a real version bump in either `package.json` or `package-lock.json` and the version is greater than the previous value.
+The publish workflow only runs after the main-branch test workflow succeeds, and only when the `main` commit includes a real version bump in either `package.json` or `package-lock.json` and the version is greater than the previous value (prerelease versions such as `-beta.1` or `-rc.1` count as an increase over their preceding stable or prerelease version).
 
 This prevents routine documentation or maintenance merges from accidentally running `npm publish` and failing with a duplicate-version error.
+
+## Automatic Tag and GitHub Release Creation
+
+After the `Publish to npm` step succeeds, the `publish` job in `publish.yml` automatically:
+
+- Creates an annotated git tag named `v<version>` (for example `v0.0.15-beta.1`) on the exact commit
+  that was tested and published (`github.event.workflow_run.head_sha`), and pushes it to the repository.
+- Skips tag creation if the tag already exists, so the workflow is safe to inspect or re-run without
+  overwriting an existing release.
+- Creates a GitHub Release for that tag with auto-generated release notes (`gh release create --generate-notes`),
+  marking it as a pre-release when the version contains a prerelease identifier (for example `-beta.1` or `-rc.1`).
+- Never runs if `npm publish` fails, because a failed step stops the job before the tag/release steps execute.
+
+This automation replaces the previous manual "create the tag and Release locally" step. The `publish` job is
+granted `contents: write` permission (scoped to that job only; the `verify` job keeps `contents: read`) so it
+can push the tag and create the Release with the least privilege required.
 
 ## Current Standard Flow
 
@@ -79,7 +95,7 @@ This prevents routine documentation or maintenance merges from accidentally runn
 4. Open a PR from `dev` to `main`, poll its CI, and merge only after it succeeds.
 5. Poll the publish workflow run for the `main` merge commit.
 6. If the `main` push changed `package.json` or `package-lock.json`, the publish workflow automatically publishes to npm.
-7. After the publish workflow succeeds, create the tag and GitHub Release locally.
+7. After `npm publish` succeeds, the same workflow run automatically creates the git tag and GitHub Release.
 
 ## Command Example
 
@@ -118,19 +134,12 @@ git pull origin main
 # The publish workflow runs automatically when package.json / package-lock.json changed.
 RUN_ID=$(gh run list --workflow="Secure Publish to npm" --branch main --limit 1 --json databaseId --jq '.[0].databaseId')
 timeout 300 gh run watch "${RUN_ID}" --exit-status
+
+# The tag (e.g. v0.0.13) and GitHub Release are created automatically by the workflow
+# once npm publish succeeds; no local tag/release steps are required.
 ```
 
-### 5) Create the tag and GitHub Release locally after npm publish succeeds
-
-```bash
-git checkout main
-git pull origin main
-git tag -a v0.0.13 -m "v0.0.13"
-git push origin v0.0.13
-gh release create v0.0.13 --target main --title "v0.0.13" --generate-notes
-```
-
-### 6) Pre-release example (beta)
+### 5) Pre-release example (beta)
 
 ```bash
 git checkout dev
@@ -142,13 +151,8 @@ git commit -m "chore(release): 0.0.15-beta.1"
 git push -u origin release/v0.0.15-beta.1
 
 # after the dev -> main PR is merged and CI passes
-# the publish workflow publishes the package to npm with the beta dist-tag
-
-git checkout main
-git pull origin main
-git tag -a v0.0.15-beta.1 -m "v0.0.15-beta.1"
-git push origin v0.0.15-beta.1
-gh release create v0.0.15-beta.1 --prerelease --target main --title "v0.0.15-beta.1" --generate-notes
+# the publish workflow publishes the package to npm with the beta dist-tag,
+# then automatically creates the v0.0.15-beta.1 tag and a pre-release GitHub Release
 ```
 
 The publish workflow detects the prerelease identifier and maps it to `beta`, `rc`, or `next` automatically.
@@ -159,14 +163,15 @@ The publish workflow detects the prerelease identifier and maps it to `beta`, `r
 - `dev -> main`: PR #140
 - CI must pass on the merge commit before npm publish is allowed
 - npm publish: success
-- local tag/release: `v0.0.13`
+- tag/release: `v0.0.13` (created automatically by the publish workflow)
 
 ## Operational Notes
 
 - `npm version patch` normally creates a tag automatically; use `--no-git-tag-version` on release branches.
 - Do not use `gh pr merge --delete-branch` on `dev -> main` PRs.
   - It can unintentionally delete the `dev` branch.
-- Always create the release tag on the exact `main` commit that was successfully published to npm.
+- The publish workflow always tags the exact `main` commit that was successfully published to npm
+  (`github.event.workflow_run.head_sha`), not a possibly-advanced branch HEAD.
 - Do not rely on GitHub Releases to trigger the publish workflow.
 - Do not bypass a blocked or pending merge; a timeout is a release failure, not a reason to force the merge.
 
@@ -177,6 +182,5 @@ The publish workflow detects the prerelease identifier and maps it to `beta`, `r
 - Did the required CI checks pass on the merge commit before the publish workflow started?
 - Does the npm dist-tag match the version channel (for example `latest`, `beta`, `rc`, `next`)?
 - Does the tag name match the package version format (for example `v0.0.13` or `v0.0.15-beta.1`)?
-- Were the git tag and GitHub Release created only after the publish workflow succeeded?
+- Did the publish workflow's tag/GitHub Release steps run only after `npm publish` succeeded?
 - Did the tag/version consistency check pass?
->>>>>>> origin/main
