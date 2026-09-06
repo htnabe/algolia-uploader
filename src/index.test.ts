@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => {
   const retrieveDataFromFiles = vi.fn();
   const retrieveDataFromDir = vi.fn();
   const showAuthors = vi.fn();
+  const runMain = vi.fn();
   const getInstance = vi.fn(() => ({ provider: "test-provider" }));
   const uploadObjects = vi.fn();
   const Uploader = vi.fn(function (
@@ -20,9 +21,18 @@ const mocks = vi.hoisted(() => {
     retrieveDataFromFiles,
     retrieveDataFromDir,
     showAuthors,
+    runMain,
     getInstance,
     uploadObjects,
     Uploader,
+  };
+});
+
+vi.mock("citty", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("citty")>();
+  return {
+    ...actual,
+    runMain: mocks.runMain,
   };
 });
 
@@ -50,6 +60,8 @@ vi.mock("./utils/Uploader", () => ({
 
 type MainContext = Parameters<NonNullable<typeof main.run>>[0];
 
+const importedEntrypoint = mocks.runMain.mock.calls[0]?.[0];
+
 const runMain = (args: MainContext["args"]): Promise<unknown> =>
   main.run?.({ args } as MainContext) ?? Promise.resolve();
 
@@ -69,6 +81,10 @@ beforeEach(() => {
 });
 
 describe("CLI file list handling", () => {
+  it("registers the command as the CLI entrypoint", () => {
+    expect(importedEntrypoint).toBe(main);
+  });
+
   it("calls retrieveDataFromFiles for each path provided via --data-files", async () => {
     const cwd = process.cwd();
     const items = [{ objectID: "item-001" }];

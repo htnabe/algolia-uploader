@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { defineCommand, runMain } from "citty";
 import { description, name, version } from "../package.json";
 import { ConfigProvider } from "./utils/ConfigProvider";
@@ -110,13 +109,7 @@ const validateCliArgs = (args: Record<string, unknown>): void => {
   }
 };
 
-// Only auto-run when this module is executed directly (not imported, e.g. in tests).
-if (
-  process.argv[1] &&
-  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-) {
-  runMain(main);
-}
+runMain(main);
 
 const uploadData = async (items: IndexedItem[]) => {
   const provider = AlgoliaClientProvider.getInstance();
