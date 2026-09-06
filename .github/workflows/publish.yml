@@ -91,12 +91,9 @@ jobs:
     if: ${{ needs.verify.outputs.should_publish == 'true' }}
     runs-on: ubuntu-latest
     environment: publish
-    # contents: write is scoped to this job only (verify keeps contents: read) so the
-    # least-privileged token is used, and is only usable after the environment's
-    # protection rules (if any) have been satisfied for this job.
     permissions:
       id-token: write  # Required for OIDC
-      contents: write  # Required to push the release tag and create the GitHub Release
+      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -175,53 +172,3 @@ jobs:
         run: |
           # Uses npm trusted publishing (OIDC), so no npm token secret is required.
           npm publish --provenance --access public --tag "${{ steps.npm_tag.outputs.npm_dist_tag }}"
-
-      # The following steps only run after "Publish to npm" has succeeded, because a
-      # step failure stops the job before later steps run. This guarantees the tag and
-      # GitHub Release are never created for a version that failed to publish.
-      - name: Create release tag
-        id: create_tag
-        env:
-          PKG_VERSION: ${{ steps.npm_tag.outputs.pkg_version }}
-          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          set -euo pipefail
-
-          TAG_NAME="v${PKG_VERSION}"
-          echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
-
-          if git rev-parse --verify "refs/tags/${TAG_NAME}" >/dev/null 2>&1; then
-            echo "Tag ${TAG_NAME} already exists; skipping tag creation."
-            echo "created=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # Tag the exact commit that was verified and published, not a possibly-advanced
-          # branch HEAD.
-          git tag -a "${TAG_NAME}" "${HEAD_SHA}" -m "${TAG_NAME}"
-          git push origin "refs/tags/${TAG_NAME}"
-          echo "created=true" >> "$GITHUB_OUTPUT"
-
-      - name: Create GitHub Release
-        if: ${{ steps.create_tag.outputs.created == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ steps.create_tag.outputs.tag_name }}
-          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-          PKG_VERSION: ${{ steps.npm_tag.outputs.pkg_version }}
-        run: |
-          set -euo pipefail
-
-          PRERELEASE_FLAG=()
-          if [[ "${PKG_VERSION}" == *"-"* ]]; then
-            PRERELEASE_FLAG=(--prerelease)
-          fi
-
-          gh release create "${TAG_NAME}" \
-            --target "${HEAD_SHA}" \
-            --title "${TAG_NAME}" \
-            --generate-notes \
-            "${PRERELEASE_FLAG[@]}"
