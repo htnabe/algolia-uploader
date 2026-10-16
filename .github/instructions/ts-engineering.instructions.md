@@ -17,7 +17,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
 - Validate external input early and fail fast with actionable errors.
 - Preserve deterministic behavior (stable ordering and repeatable outputs).
 - Use explicit types; avoid introducing new `any` except at unavoidable boundaries.
-- Use Biome for formatting and linting (`npm run lint`) and do not use Prettier in this repository.
+- Use Biome for formatting and linting (`bun run lint`) and do not use Prettier in this repository.
 - Apply TypeScript library best practices (clear public API boundaries, explicit types, safe error handling, and compatibility-conscious changes).
 - Apply SOLID principles when introducing or changing abstractions.
 - Reuse existing patterns before introducing new abstractions.
@@ -40,7 +40,7 @@ Use these rules when implementing or modifying TypeScript behavior in `src/` and
    - Keep failure messages actionable.
 5. Validate the result.
    - Run targeted tests first, then broader validation as needed.
-   - If the change affects build or lint-sensitive code, run `npm run build` and `npm run lint` (Biome) when appropriate.
+   - If the change affects build or lint-sensitive code, run `bun run build` and `bun run lint` (Biome) when appropriate.
    - If the change affects release or CI behavior, inspect related workflow or hook docs before finishing.
 6. Summarize the outcome.
    - State what changed, why it changed, and what was validated.
