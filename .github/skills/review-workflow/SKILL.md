@@ -21,7 +21,7 @@ Use this skill for code review, change review, or pre-push review in this reposi
 
 - Scope and requirement alignment.
 - Tests added or updated, plus stated test results.
-- Biome lint and format check results (`npm run lint`).
+- Biome lint and format check results (`bun run lint`).
 - Risk and regression checks.
 - Adherence to TypeScript library best practices.
 - Adherence to SOLID principles.

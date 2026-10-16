@@ -12,6 +12,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
 - Configure branch protection for `main` so the required CI checks for the test workflow must pass before a merge is allowed.
 - No npm token secret is required.
 - The publish job pins npm to the `11` line: trusted publishing needs npm 11.5.1 or later, while npm 12 requires a newer Node than the workflow uses.
+- Repository dependencies are managed with Bun 1.4.3; npm remains the publishing client for npm Trusted Publishing.
 
 ## Goal
 
@@ -33,7 +34,7 @@ Before using the publish flow, configure the GitHub Actions settings required by
   2. `dev` -> `main`
   3. Confirm the CI workflow has passed on the merge commit to `main`
   4. The publish workflow is triggered only after the test workflow succeeds on that `main` commit
-  5. Publish to npm only when `package.json` or `package-lock.json` changed and the version increased
+  5. Publish to npm only when `package.json` or `bun.lock` changed and the version increased
   6. After `npm publish` succeeds, the repository owner creates the `v<version>` tag locally on that `main` commit and pushes it
   7. The tag push triggers `github-release.yml`, which creates the GitHub Release
 - The GitHub Actions publish workflow is intentionally not triggered by a GitHub Release event.
@@ -66,7 +67,7 @@ npm install algolia-uploader@next
 
 ## Automatic Publish Safety Rule
 
-The publish workflow only runs after the main-branch test workflow succeeds, and only when the `main` commit includes a real version bump in either `package.json` or `package-lock.json` and the version is greater than the previous value (prerelease versions such as `-beta.1` or `-rc.1` count as an increase over their preceding stable or prerelease version).
+The publish workflow only runs after the main-branch test workflow succeeds, and only when the `main` commit includes a real version bump in either `package.json` or `bun.lock` and the version is greater than the previous value (prerelease versions such as `-beta.1` or `-rc.1` count as an increase over their preceding stable or prerelease version).
 
 This prevents routine documentation or maintenance merges from accidentally running `npm publish` and failing with a duplicate-version error.
 
@@ -89,11 +90,11 @@ The publish workflow therefore never creates tags or Releases; those flows are f
 1. Create a release branch from `dev`.
    - Example: `release/v0.0.13`
 2. Bump version on the release branch only.
-   - `npm version 0.0.13 --no-git-tag-version`
+   - `bun pm pkg set version=0.0.13 && bun install`
 3. Open a PR from the release branch to `dev`, poll its CI, and merge only after it succeeds.
 4. Open a PR from `dev` to `main`, poll its CI, and merge only after it succeeds.
 5. Poll the publish workflow run for the `main` merge commit.
-6. If the `main` push changed `package.json` or `package-lock.json`, the publish workflow automatically publishes to npm.
+6. If the `main` push changed `package.json` or `bun.lock`, the publish workflow automatically publishes to npm.
 7. After `npm publish` succeeds, create the `v<version>` tag locally on that `main` commit and push it.
 8. The tag push triggers the GitHub Release workflow, which creates the Release.
 
@@ -105,8 +106,9 @@ The publish workflow therefore never creates tags or Releases; those flows are f
 git checkout dev
 git pull origin dev
 git checkout -b release/v0.0.13
-npm version 0.0.13 --no-git-tag-version
-git add package.json package-lock.json
+bun pm pkg set version=0.0.13
+bun install
+git add package.json bun.lock
 git commit -m "chore(release): 0.0.13"
 git push -u origin release/v0.0.13
 ```
@@ -131,7 +133,7 @@ gh pr merge <pr-number> --merge --delete-branch=false
 ```bash
 git checkout main
 git pull origin main
-# The publish workflow runs automatically when package.json / package-lock.json changed.
+# The publish workflow runs automatically when package.json / bun.lock changed.
 RUN_ID=$(gh run list --workflow="Secure Publish to npm" --branch main --limit 1 --json databaseId --jq '.[0].databaseId')
 timeout 300 gh run watch "${RUN_ID}" --exit-status
 ```
@@ -157,8 +159,9 @@ gh release view v0.0.13
 git checkout dev
 git pull origin dev
 git checkout -b release/v0.0.15-beta.1
-npm version 0.0.15-beta.1 --no-git-tag-version
-git add package.json package-lock.json
+bun pm pkg set version=0.0.15-beta.1
+bun install
+git add package.json bun.lock
 git commit -m "chore(release): 0.0.15-beta.1"
 git push -u origin release/v0.0.15-beta.1
 
@@ -179,7 +182,7 @@ The publish workflow detects the prerelease identifier and maps it to `beta`, `r
 
 ## Operational Notes
 
-- `npm version patch` normally creates a tag automatically; use `--no-git-tag-version` on release branches.
+- `bun pm pkg set version=<version>` updates the package version without creating a tag; run `bun install` afterward to refresh `bun.lock`.
 - Do not use `gh pr merge --delete-branch` on `dev -> main` PRs.
   - It can unintentionally delete the `dev` branch.
 - Always tag the exact `main` commit that was successfully published to npm, not a possibly-advanced branch HEAD.
@@ -189,7 +192,7 @@ The publish workflow detects the prerelease identifier and maps it to `beta`, `r
 
 ## Troubleshooting Checklist
 
-- Was the `main` branch push a deliberate version bump in `package.json` or `package-lock.json`?
+- Was the `main` branch push a deliberate version bump in `package.json` or `bun.lock`?
 - Did every required CI check reach success within the 5-minute polling window before the merge?
 - Did the required CI checks pass on the merge commit before the publish workflow started?
 - Does the npm dist-tag match the version channel (for example `latest`, `beta`, `rc`, `next`)?
