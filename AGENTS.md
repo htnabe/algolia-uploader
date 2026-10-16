@@ -17,17 +17,17 @@ Repository layout and feature map: [docs/development/repository-map.md](docs/dev
 
 ## Fast Commands
 
-- Install deps: npm install
-- Build (tsdown): npm run build
-- Test: npm test
-- Lint (Biome): npm run lint
-- Lint + fix (Biome): npm run lint:fix
-- Lint staged files: npm run lint:staged
-- Local run: npm run dev
+- Install deps: bun install
+- Build (tsdown): bun run build
+- Test: bun run test
+- Lint (Biome): bun run lint
+- Lint + fix (Biome): bun run lint:fix
+- Lint staged files: bun run lint:staged
+- Local run: bun run dev
 
 ## Toolchain
 
-- Required versions: Node.js `22.22.1`
+- Required versions: Bun `1.4.3`, Node.js `22.22.1`
 
 ## Required Environment
 

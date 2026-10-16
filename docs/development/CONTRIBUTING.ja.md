@@ -4,11 +4,11 @@
 
 ## 1. 開発環境の準備
 
-- Node.js 22.22.1 を使用してください。
+- Bun 1.4.3 と Node.js 22.22.1 を使用してください。
 - 依存関係をインストールします。
 
 ```bash
-npm install
+bun install
 ```
 
 - 実行確認が必要な場合は、[quick-start.ja.md](./quick-start.ja.md) を参照して `.env` を準備してください。
@@ -18,7 +18,7 @@ npm install
 CLI をローカル実行します。
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 入力ディレクトリと Algolia 認証情報は環境変数で指定します。
@@ -28,32 +28,32 @@ npm run dev
 - ビルド:
 
 ```bash
-npm run build
+bun run build
 ```
 
 - Lint:
 
 ```bash
-npm run lint
+bun run lint
 ```
 
 - Lint 自動修正:
 
 ```bash
-npm run lint:fix
+bun run lint:fix
 ```
 
 - 単体テスト:
 
 ```bash
-npm test
+bun run test
 ```
 
 ## 4. 単体試験の方針
 
 - 振る舞いを変更した場合は、必ずテストを追加または更新してください。
 - テストは決定的で独立した状態を保ってください。
-- push 前に `npm test` を実行してください。
+- push 前に `bun run test` を実行してください。
 - pre-push フックでもテストが実行されるため、失敗は解消してください。
 
 ## 5. ワークフローとプルリクエスト
