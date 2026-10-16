@@ -12,4 +12,4 @@ applyTo: "**/*.md"
 - Prefer focused pages over monolithic files that mix unrelated concerns.
 - Keep AGENTS.md concise; do not require it to mirror docs indexes.
 - When moving content, update inbound links in the same change.
-- Use Biome for markdown formatting via `npm run lint`; do not use Prettier in this repository.
+- Use Biome for markdown formatting via `bun run lint`; do not use Prettier in this repository.

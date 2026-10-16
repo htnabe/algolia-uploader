@@ -4,11 +4,11 @@ This guide is for developers contributing to this repository.
 
 ## 1. Development environment setup
 
-- Use Node.js 22.22.1.
+- Use Bun 1.4.3 and Node.js 22.22.1.
 - Install dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 - For runtime checks, prepare `.env` as described in [quick-start.md](./quick-start.md).
@@ -18,7 +18,7 @@ npm install
 Run the CLI locally:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Use your local input directory and Algolia credentials through environment variables.
@@ -28,32 +28,32 @@ Use your local input directory and Algolia credentials through environment varia
 - Build:
 
 ```bash
-npm run build
+bun run build
 ```
 
 - Lint:
 
 ```bash
-npm run lint
+bun run lint
 ```
 
 - Lint with autofix:
 
 ```bash
-npm run lint:fix
+bun run lint:fix
 ```
 
 - Unit tests:
 
 ```bash
-npm test
+bun run test
 ```
 
 ## 4. Unit test policy
 
 - Add or update tests for every behavior change.
 - Keep tests deterministic and isolated.
-- Run `npm test` before pushing.
+- Run `bun run test` before pushing.
 - Pre-push hook also runs tests. Do not bypass failures.
 
 ## 5. Workflow and pull requests

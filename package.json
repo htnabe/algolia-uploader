@@ -1,6 +1,7 @@
 {
   "name": "algolia-uploader",
-  "version": "0.0.20-rc.4",
+  "version": "0.0.20",
+  "packageManager": "bun@1.4.3",
   "description": "command-line util to upload Algolia source",
   "repository": {
     "type": "git",
@@ -17,24 +18,24 @@
     "node": ">=22.22.1"
   },
   "dependencies": {
-    "algoliasearch": "^5.57.0",
+    "algoliasearch": "^5.59.0",
     "citty": "^0.2.2",
-    "es-toolkit": "^1.51.0"
+    "es-toolkit": "^1.52.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.10",
-    "@dotenvx/dotenvx": "^2.21.0",
-    "@types/node": "^26.3.0",
+    "@biomejs/biome": "^2.5.15",
+    "@dotenvx/dotenvx": "^2.34.1",
+    "@types/node": "^26.6.4",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/coverage-v8": "^5.0.3",
     "husky": "^9.1.7",
     "jiti": "^2.7.0",
-    "lint-staged": "^17.3.0",
+    "lint-staged": "^17.6.0",
     "npm-check-updates": "^23.1.0",
     "tsdown": "^0.23.0",
     "typescript": "^7.0.2",
     "unrun": "^0.3.1",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.3"
   },
   "scripts": {
     "build": "tsdown",
@@ -46,7 +47,7 @@
     "typecheck": "tsgo -p tsconfig.json --noEmit",
     "test": "vitest run",
     "dev": "JITI_TSCONFIG_PATHS=true dotenvx run -f .env.local jiti ./src/index.ts",
-    "update": "ncu --upgrade && npm install"
+    "update": "ncu --upgrade && bun install"
   },
   "keywords": [
     "algolia"
@@ -63,10 +64,11 @@
     "./package.json": "./package.json"
   },
   "inlinedDependencies": {
-    "@dotenvx/dotenvx": "2.21.0",
-    "@dotenvx/primitives": "2.2.0",
-    "@dotenvx/tooling": "1.0.3",
-    "picomatch": "4.0.5",
+    "@dotenvx/dotenvx": "2.34.1",
+    "@dotenvx/primitives": "3.2.0",
+    "@dotenvx/providers": "0.3.4",
+    "@dotenvx/tooling": "1.0.4",
+    "picomatch": "4.0.7",
     "yocto-spinner": "1.2.2",
     "yoctocolors": "2.1.2"
   }
